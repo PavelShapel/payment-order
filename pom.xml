@@ -60,6 +60,25 @@
                 <version>${pavelshapel.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>random-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>json-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>aop-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
