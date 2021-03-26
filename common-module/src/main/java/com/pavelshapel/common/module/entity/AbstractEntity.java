@@ -12,7 +12,6 @@ import java.io.Serializable;
 
 
 @Data
-@Setter(AccessLevel.NONE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -24,6 +23,7 @@ public abstract class AbstractEntity implements Serializable {
     private Long id;
 
     @Version
+    @Setter(AccessLevel.NONE)
     @Column(nullable = false)
     @EqualsAndHashCode.Exclude
     @JsonIgnore
