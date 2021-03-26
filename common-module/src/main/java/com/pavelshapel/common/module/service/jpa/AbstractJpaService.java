@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.service;
+package com.pavelshapel.common.module.service.jpa;
 
 import com.pavelshapel.common.module.entity.AbstractEntity;
 import com.pavelshapel.common.module.repository.AbstractJpaRepository;
@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Transactional
@@ -21,15 +20,19 @@ public abstract class AbstractJpaService<T extends AbstractEntity> implements Jp
     }
 
     @Override
-    public T getOne(Long id) {
-        return jpaRepository.getOne(id);
+    public T save(T entity) {
+        return jpaRepository.save(entity);
     }
 
     @Override
+    public List<T> saveAll(Iterable<T> entities) {
+        return jpaRepository.saveAll(entities);
+    }
+
+
+    @Override
     public T findById(Long id) {
-        return jpaRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("[id: %d]", id)));
+        return jpaRepository.findById(id).get();
     }
 
     @Override
@@ -47,28 +50,10 @@ public abstract class AbstractJpaService<T extends AbstractEntity> implements Jp
         return jpaRepository.findAll(pageable);
     }
 
-    @Override
-    public T save(T entity) {
-        return jpaRepository.save(entity);
-    }
 
     @Override
-    public List<T> saveAll(Iterable<T> entities) {
-        return jpaRepository.saveAll(entities);
-    }
-
-
-    @Override
-    public Long deleteById(T entity) {
-        final Long id = entity.getId();
-        jpaRepository.delete(entity);
-        return id;
-    }
-
-    @Override
-    public Long deleteById(Long id) {
+    public void deleteById(Long id) {
         jpaRepository.deleteById(id);
-        return id;
     }
 
     @Override
@@ -78,13 +63,8 @@ public abstract class AbstractJpaService<T extends AbstractEntity> implements Jp
 
 
     @Override
-    public void deleteAll(Iterable<? extends T> entities) {
-        jpaRepository.deleteAll(entities);
-    }
-
-    @Override
-    public void existsById(Long id) {
-        jpaRepository.existsById(id);
+    public boolean existsById(Long id) {
+        return jpaRepository.existsById(id);
     }
 
     @Override

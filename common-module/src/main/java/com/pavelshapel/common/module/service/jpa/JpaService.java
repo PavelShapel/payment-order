@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.service;
+package com.pavelshapel.common.module.service.jpa;
 
 import com.pavelshapel.common.module.entity.AbstractEntity;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,10 @@ public interface JpaService<T extends AbstractEntity> {
 
     T createAndSave();
 
-    T getOne(Long id);
+    T save(T entity);
+
+    List<T> saveAll(Iterable<T> entities);
+
 
     T findById(Long id);
 
@@ -21,19 +24,13 @@ public interface JpaService<T extends AbstractEntity> {
 
     Page<T> findAll(Pageable pageable);
 
-    T save(T entity);
 
-    List<T> saveAll(Iterable<T> entities);
-
-    Long deleteById(T entity);
-
-    Long deleteById(Long id);
+    void deleteById(Long id);
 
     void deleteAll();
 
-    void deleteAll(Iterable<? extends T> entities);
 
-    void existsById(Long id);
+    boolean existsById(Long id);
 
     long getCount();
 }
