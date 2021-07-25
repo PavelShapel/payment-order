@@ -1,0 +1,57 @@
+server:
+  port: 9001
+spring:
+  profiles: dev
+  application:
+    name: service-location
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/service-location
+    username: postgres
+    password: postgres
+    initialization-mode: never
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/service-location
+    user: postgres
+    password: postgres
+    change-log: classpath:db/changelog/db.changelog-master.yml
+---
+server:
+  port: 8001
+spring:
+  profiles: prod
+  application:
+    name: service-location
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/service-location
+    username: postgres
+    password: postgres
+    initialization-mode: never
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/service-location
+    user: postgres
+    password: postgres
+    change-log: classpath:db/changelog/db.changelog-master.yml

@@ -40,69 +40,58 @@
                 <version>${testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.pavelshapel</groupId>
                 <artifactId>test-spring-boot-starter</artifactId>
                 <version>${pavelshapel.version}</version>
                 <scope>test</scope>
             </dependency>
-
-            <dependency>
-                <groupId>com.pavelshapel</groupId>
-                <artifactId>random-spring-boot-starter</artifactId>
-                <version>${pavelshapel.version}</version>
-                <scope>test</scope>
-            </dependency>
-
             <dependency>
                 <groupId>com.pavelshapel</groupId>
                 <artifactId>json-spring-boot-starter</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>jpa-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.pavelshapel</groupId>
                 <artifactId>aop-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>stream-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>web-spring-boot-starter</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-rest</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-rest-hal-explorer</artifactId>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
