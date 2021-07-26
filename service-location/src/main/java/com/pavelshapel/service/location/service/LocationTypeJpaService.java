@@ -11,13 +11,13 @@ import java.util.List;
 
 @Service
 @JpaDecorate(decorations = {ThrowableDecoratorJpaService.class})
+//@Loggable
 public class LocationTypeJpaService extends AbstractJpaService<LocationType> {
 
     @Override
     public LocationType create() {
         return new LocationType();
     }
-
 
     public List<LocationType> findByNameIgnoreCaseContaining(String name) {
         return ((LocationTypeJpaRepository) getJpaRepository()).findByNameIgnoreCaseContaining(name);

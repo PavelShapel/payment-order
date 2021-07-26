@@ -9,6 +9,7 @@
     <modules>
         <module>service-location</module>
         <module>common-module</module>
+        <module>service-auth</module>
     </modules>
 
     <parent>

@@ -1,0 +1,165 @@
+databaseChangeLog:
+  - changeSet:
+      id: service-auth.create-table.user
+      author: pavelshapel
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(127)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: service-auth.create-table.role
+      author: pavelshapel
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_type
+                  type: varchar(127)
+                  constraints:
+                    unique: true
+                    nullable: false
+  - changeSet:
+      id: service-auth.create-table.user_role
+      author: pavelshapel
+      changes:
+        - createTable:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: service-auth.add-foreign-key.user_role_user_id
+      author: pavelshapel
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: user_role_user_id_fkey
+            baseColumnNames: user_id
+            baseTableName: user_role
+            baseTableSchemaName: public
+            referencedColumnNames: id
+            referencedTableName: user
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: service-auth.add-foreign-key.user_role_role_id
+      author: pavelshapel
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: user_role_role_id_fkey
+            baseColumnNames: role_id
+            baseTableName: user_role
+            baseTableSchemaName: public
+            referencedColumnNames: id
+            referencedTableName: role
+            referencedTableSchemaName: public
+            validate: true
+#  - changeSet:
+#      id: service-auth.insert.role
+#      author: pavelshapel
+#      changes:
+#        - insert:
+#            columns:
+#              - column:
+#                  name: name
+#                  value: ROLE_ADMIN
+#            schemaName: public
+#            tableName: role
+#        - insert:
+#            columns:
+#              - column:
+#                  name: name
+#                  value: ROLE_MANAGER
+#            schemaName: public
+#            tableName: role
+#        - insert:
+#            columns:
+#              - column:
+#                  name: name
+#                  value: ROLE_USER
+#            schemaName: public
+#            tableName: role

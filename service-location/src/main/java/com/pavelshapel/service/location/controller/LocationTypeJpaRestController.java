@@ -13,15 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.pavelshapel.service.location.controller.LocationTypeJpaRestController.HOME_PATH;
+
 @RestController
-@RequestMapping("/locationTypes")
+@RequestMapping(HOME_PATH)
 public class LocationTypeJpaRestController extends AbstractJpaRestController<LocationType> {
+    public static final String HOME_PATH = "/locationTypes";
+
     @Autowired
     protected LocationTypeJpaRestController(JpaService<LocationType> locationTypeJpaService) {
         super(locationTypeJpaService);
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping(NAME_PATH)
     public ResponseEntity<List<LocationType>> get(@PathVariable String name) {
         return ResponseEntity.ok(((LocationTypeJpaService) getJpaService()).findByNameIgnoreCaseContaining(name));
     }
