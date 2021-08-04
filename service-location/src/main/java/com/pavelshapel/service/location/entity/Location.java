@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "name"}))
 public class Location extends AbstractAuditableVersionEntity {
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Location.class)
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     @JsonIgnore
     private Location parent;

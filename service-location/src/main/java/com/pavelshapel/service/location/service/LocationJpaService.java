@@ -2,15 +2,12 @@ package com.pavelshapel.service.location.service;
 
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.AbstractJpaService;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.JpaDecorate;
-import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.ThrowableDecoratorJpaService;
 import com.pavelshapel.service.location.entity.Location;
-import com.pavelshapel.service.location.repository.LocationJpaRepository;
+import com.pavelshapel.service.location.service.decorator.LocationThrowableDecoratorJpaService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-@JpaDecorate(decorations = {ThrowableDecoratorJpaService.class})
+@JpaDecorate(decorations = {LocationThrowableDecoratorJpaService.class})
 public class LocationJpaService extends AbstractJpaService<Location> {
 
     @Override
@@ -18,8 +15,8 @@ public class LocationJpaService extends AbstractJpaService<Location> {
         return new Location();
     }
 
-
-    public List<Location> findByNameIgnoreCaseContaining(String name) {
-        return ((LocationJpaRepository) getJpaRepository()).findByNameIgnoreCaseContaining(name);
+    @Override
+    public Location getParent(Location location) {
+        return location.getParent();
     }
 }
