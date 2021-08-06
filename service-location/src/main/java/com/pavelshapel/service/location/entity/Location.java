@@ -10,6 +10,8 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -17,12 +19,18 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "name"}))
 public class Location extends AbstractAuditableVersionEntity {
-    @ManyToOne
+    @ManyToOne(targetEntity = Location.class)
     @JoinColumn(name = "parent_id")
     @JsonIgnore
     private Location parent;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = LocationType.class)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private transient Set<Location> locations = new LinkedHashSet<>();
+
+    @ManyToOne(targetEntity = LocationType.class)
     @JoinColumn(name = "location_type_id")
     @JsonIgnore
     private LocationType locationType;
