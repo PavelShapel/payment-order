@@ -1,16 +1,16 @@
-package com.pavelshapel.service.location.entity.converter;
+package com.pavelshapel.service.location.controller.converter;
 
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
 import com.pavelshapel.service.location.entity.Location;
 import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.web.spring.boot.starter.controller.converter.ToDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class LocationToDtoConverter implements Converter<Location, Location> {
+public class LocationToDtoConverter extends ToDtoConverter<Location> {
     @Autowired
     private JpaService<LocationType> locationTypeJpaService;
 
