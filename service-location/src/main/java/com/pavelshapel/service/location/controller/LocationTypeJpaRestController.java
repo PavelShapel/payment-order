@@ -4,6 +4,8 @@ import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchSpecifica
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
 import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.web.spring.boot.starter.controller.AbstractJpaRestController;
+import com.pavelshapel.web.spring.boot.starter.controller.converter.FromDtoConverter;
+import com.pavelshapel.web.spring.boot.starter.controller.converter.ToDtoConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,10 @@ public class LocationTypeJpaRestController extends AbstractJpaRestController<Loc
     public static final String HOME_PATH = "/locationTypes" + StringUtils.EMPTY;
 
     @Autowired
-    public LocationTypeJpaRestController(JpaService<LocationType> locationTypeJpaService, SearchSpecification<LocationType> locationTypeSearchSpecification) {
-        super(locationTypeJpaService, locationTypeSearchSpecification);
+    public LocationTypeJpaRestController(JpaService<LocationType> locationTypeJpaService,
+                                         SearchSpecification<LocationType> locationTypeSearchSpecification,
+                                         FromDtoConverter<LocationType> locationTypeFromDtoConverter,
+                                         ToDtoConverter<LocationType> locationTypeToDtoConverter) {
+        super(locationTypeJpaService, locationTypeSearchSpecification, locationTypeFromDtoConverter, locationTypeToDtoConverter);
     }
 }
