@@ -16,6 +16,7 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(127)
+                  defaultValue: mandatory
                   constraints:
                     nullable: false
               - column:
@@ -26,11 +27,13 @@ databaseChangeLog:
               - column:
                   name: created_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
                   name: last_modified_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
@@ -62,6 +65,7 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(127)
+                  defaultValue: mandatory
                   constraints:
                     nullable: false
               - column:
@@ -72,11 +76,13 @@ databaseChangeLog:
               - column:
                   name: created_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
                   name: last_modified_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
