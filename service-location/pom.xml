@@ -46,6 +46,14 @@
             <artifactId>jpa-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>aop-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>cache-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
