@@ -2,15 +2,17 @@ package com.pavelshapel.service.location.repository;
 
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchCriteria;
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchOperation;
-import com.pavelshapel.service.location.ServiceLocationApplication;
+import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.service.location.provider.OneStringProvider;
 import com.pavelshapel.service.location.provider.TwoStringProvider;
 import com.pavelshapel.service.location.repository.search.LocationTypeSearchSpecification;
+import com.pavelshapel.test.spring.boot.starter.layer.AbstractJpaRepositoryTest;
+import com.pavelshapel.test.spring.boot.starter.layer.MockSearchCriteria;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Import;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -18,17 +20,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@ContextConfiguration(classes = {
-        ServiceLocationApplication.class,
-        LocationTypeSearchSpecification.class
-})
-class LocationTypeJpaRepositoryTest extends AbstractLocationTypeJpaRepositoryTest {
+@Import(LocationTypeSearchSpecification.class)
+class LocationTypeJpaRepositoryTest extends AbstractJpaRepositoryTest<LocationType> implements MockLocationType, MockSearchCriteria {
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
     void findAllByNameContaining_WithValidParam_ShouldSaveAndReturnListWithEntity(String name) {
-        LocationType locationType = getLocationType(name);
-        LocationType savedLocationType = saveAndRetrieve(locationType);
-        SearchCriteria searchCriteriaName = getSearchCriteriaName(name.toLowerCase(), SearchOperation.CONTAINS);
+        LocationType mockLocationType = getMockLocationType(name);
+        LocationType savedLocationType = saveAndRetrieve(mockLocationType);
+        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(name.toLowerCase(), SearchOperation.CONTAINS);
         getSearchSpecification().setSearchCriteria(searchCriteriaName);
 
         List<LocationType> retrievedLocationType = getJpaRepository().findAll(getSearchSpecification());
@@ -42,9 +41,9 @@ class LocationTypeJpaRepositoryTest extends AbstractLocationTypeJpaRepositoryTes
     @ParameterizedTest
     @ArgumentsSource(TwoStringProvider.class)
     void findAllByNameContaining_WithInvalidParam_ShouldSaveAndReturnEmptyList(String name, String searchName) {
-        LocationType locationType = getLocationType(name);
-        saveAndRetrieve(locationType);
-        SearchCriteria searchCriteriaName = getSearchCriteriaName(searchName, SearchOperation.CONTAINS);
+        LocationType mockLocationType = getMockLocationType(name);
+        saveAndRetrieve(mockLocationType);
+        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(searchName, SearchOperation.CONTAINS);
         getSearchSpecification().setSearchCriteria(searchCriteriaName);
 
         List<LocationType> retrievedLocationType = getJpaRepository().findAll(getSearchSpecification());
@@ -57,9 +56,9 @@ class LocationTypeJpaRepositoryTest extends AbstractLocationTypeJpaRepositoryTes
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
     void findAllByNameStartsWith_WithValidParam_ShouldSaveAndReturnListWithEntity(String name) {
-        LocationType locationType = getLocationType(name);
-        LocationType savedLocationType = saveAndRetrieve(locationType);
-        SearchCriteria searchCriteriaName = getSearchCriteriaName(name.substring(0,1), SearchOperation.STARTS_WITH);
+        LocationType mockLocationType = getMockLocationType(name);
+        LocationType savedLocationType = saveAndRetrieve(mockLocationType);
+        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(name.substring(0,1), SearchOperation.STARTS_WITH);
         getSearchSpecification().setSearchCriteria(searchCriteriaName);
 
         List<LocationType> retrievedLocationType = getJpaRepository().findAll(getSearchSpecification());
@@ -73,9 +72,9 @@ class LocationTypeJpaRepositoryTest extends AbstractLocationTypeJpaRepositoryTes
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
     void findAllByNameEqual_WithValidParam_ShouldSaveAndReturnListWithEntity(String name) {
-        LocationType locationType = getLocationType(name);
-        LocationType savedLocationType = saveAndRetrieve(locationType);
-        SearchCriteria searchCriteriaName = getSearchCriteriaName(name, SearchOperation.EQUAL);
+        LocationType mockLocationType = getMockLocationType(name);
+        LocationType savedLocationType = saveAndRetrieve(mockLocationType);
+        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(name, SearchOperation.EQUALS);
         getSearchSpecification().setSearchCriteria(searchCriteriaName);
 
         List<LocationType> retrievedLocationType = getJpaRepository().findAll(getSearchSpecification());
@@ -88,8 +87,8 @@ class LocationTypeJpaRepositoryTest extends AbstractLocationTypeJpaRepositoryTes
 
     @Test
     void saveAndRetrieve_WithNullParam_ShouldThrowException() {
-        LocationType locationType = getLocationType(null);
-        assertThatThrownBy(() -> saveAndRetrieve(locationType))
+        LocationType mockLocationType = getMockLocationType(null);
+        assertThatThrownBy(() -> saveAndRetrieve(mockLocationType))
                 .isInstanceOf(ConstraintViolationException.class);
     }
 }
