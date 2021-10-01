@@ -22,7 +22,8 @@ spring:
   aop:
     proxy-target-class: false
   application:
-    name: service-location
+    name: @project.artifactId@:@project.version@
+    description: @project.description@
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
