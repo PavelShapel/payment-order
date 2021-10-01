@@ -1,20 +1,21 @@
 package com.pavelshapel.service.location.service;
 
-import com.pavelshapel.jpa.spring.boot.starter.repository.AbstractJpaRepository;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.AbstractJpaService;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.JpaDecorate;
 import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.service.decorator.LocationTypeCacheableDecoratorJpaService;
 import com.pavelshapel.service.location.service.decorator.LocationTypeThrowableDecoratorJpaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@JpaDecorate(decorations = {LocationTypeThrowableDecoratorJpaService.class})
+@JpaDecorate(decorations = {
+        LocationTypeCacheableDecoratorJpaService.class,
+        LocationTypeThrowableDecoratorJpaService.class}
+)
 public class LocationTypeJpaService extends AbstractJpaService<LocationType> {
 
-    @Autowired
-    public LocationTypeJpaService(AbstractJpaRepository<LocationType> abstractJpaRepository) {
-        super(abstractJpaRepository);
+    public LocationTypeJpaService() {
+        super(LocationType.class);
     }
 
     @Override
