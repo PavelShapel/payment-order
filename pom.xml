@@ -7,9 +7,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>service-location</module>
         <module>common-module</module>
-        <module>service-auth</module>
+        <module>service-location</module>
+<!--        <module>service-auth</module>-->
     </modules>
 
     <parent>
@@ -37,7 +37,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
@@ -104,6 +103,11 @@
             <dependency>
                 <groupId>com.pavelshapel</groupId>
                 <artifactId>core-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>common-module</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
         </dependencies>
