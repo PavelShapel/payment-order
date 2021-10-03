@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.service;
 
-import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.provider.OneStringProvider;
 import com.pavelshapel.service.location.repository.LocationTypeJpaRepository;
 import com.pavelshapel.test.spring.boot.starter.layer.AbstractJpaServiceTest;

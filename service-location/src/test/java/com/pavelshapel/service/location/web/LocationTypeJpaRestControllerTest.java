@@ -1,9 +1,9 @@
-package com.pavelshapel.service.location.controller;
+package com.pavelshapel.service.location.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.core.spring.boot.starter.util.StreamUtils;
 import com.pavelshapel.service.location.MockLocationType;
-import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.service.location.provider.OneLongOneStringProvider;
 import com.pavelshapel.service.location.provider.OneStringProvider;
 import com.pavelshapel.service.location.repository.search.LocationTypeSearchSpecification;
@@ -20,8 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.pavelshapel.service.location.controller.LocationTypeJpaRestController.HOME_PATH;
-import static com.pavelshapel.web.spring.boot.starter.controller.AbstractJpaRestController.ID_PATH;
+import static com.pavelshapel.service.location.web.LocationTypeJpaRestController.HOME_PATH;
+import static com.pavelshapel.web.spring.boot.starter.web.AbstractJpaRestController.ID_PATH;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;

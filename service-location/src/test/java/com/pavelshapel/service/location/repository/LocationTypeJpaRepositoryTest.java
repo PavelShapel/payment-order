@@ -1,9 +1,9 @@
 package com.pavelshapel.service.location.repository;
 
+import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchCriteria;
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchOperation;
 import com.pavelshapel.service.location.MockLocationType;
-import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.service.location.provider.OneStringProvider;
 import com.pavelshapel.service.location.provider.TwoStringProvider;
 import com.pavelshapel.service.location.repository.search.LocationTypeSearchSpecification;
@@ -58,7 +58,7 @@ class LocationTypeJpaRepositoryTest extends AbstractJpaRepositoryTest<LocationTy
     void findAllByNameStartsWith_WithValidParam_ShouldSaveAndReturnListWithEntity(String name) {
         LocationType mockLocationType = getMockLocationType(name);
         LocationType savedLocationType = saveAndRetrieve(mockLocationType);
-        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(name.substring(0,1), SearchOperation.STARTS_WITH);
+        SearchCriteria searchCriteriaName = getMockSearchCriteriaName(name.substring(0, 1), SearchOperation.STARTS_WITH);
         getSearchSpecification().setSearchCriteria(searchCriteriaName);
 
         List<LocationType> retrievedLocationType = getJpaRepository().findAll(getSearchSpecification());

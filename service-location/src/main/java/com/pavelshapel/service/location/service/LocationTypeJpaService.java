@@ -1,8 +1,8 @@
 package com.pavelshapel.service.location.service;
 
+import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.AbstractJpaService;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.JpaDecorate;
-import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.service.location.service.decorator.LocationTypeCacheableDecoratorJpaService;
 import com.pavelshapel.service.location.service.decorator.LocationTypeThrowableDecoratorJpaService;
 import org.springframework.stereotype.Service;
