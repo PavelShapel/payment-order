@@ -52,8 +52,9 @@ public class QuickSort extends RecursiveAction {
 
     @Override
     protected void compute() {
-        if (start >= end)
+        if (start >= end) {
             return;
+        }
         int baseElement = sort(start, end, array);
         QuickSort first = new QuickSort(start, baseElement - 1, array);
         QuickSort second = new QuickSort(baseElement + 1, end, array);
