@@ -18,35 +18,35 @@ public class QuickSort extends RecursiveAction {
         this.end = end;
     }
 
-    private int sort(int start, int end, int[] arr) {
+    private int sort(int start, int end, int[] array) {
         int i = start;
         int j = end;
         int random = ThreadLocalRandom.current().nextInt(j - i) + i;
 
-        int temp = arr[j];
-        arr[j] = arr[random];
-        arr[random] = temp;
+        int temp = array[j];
+        array[j] = array[random];
+        array[random] = temp;
         j--;
 
         while (i <= j) {
-            if (arr[i] <= arr[end]) {
+            if (array[i] <= array[end]) {
                 i++;
                 continue;
             }
-            if (arr[j] >= arr[end]) {
+            if (array[j] >= array[end]) {
                 j--;
                 continue;
             }
-            temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
+            temp = array[j];
+            array[j] = array[i];
+            array[i] = temp;
             j--;
             i++;
         }
 
-        temp = arr[j + 1];
-        arr[j + 1] = arr[end];
-        arr[end] = temp;
+        temp = array[j + 1];
+        array[j + 1] = array[end];
+        array[end] = temp;
         return j + 1;
     }
 

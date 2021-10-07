@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @SpringBootApplication
 @Slf4j
 public class Application implements CommandLineRunner {
-    public static final int BOUND = 10;
+    public static final int BOUND = 50;
     public static final String BEFORE = "before";
     public static final String AFTER = "after";
 
