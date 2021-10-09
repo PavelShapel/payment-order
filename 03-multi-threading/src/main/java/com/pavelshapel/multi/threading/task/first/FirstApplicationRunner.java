@@ -1,15 +1,12 @@
 package com.pavelshapel.multi.threading.task.first;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Slf4j
-public class ApplicationRunner {
+public class FirstApplicationRunner {
     public static final int BOUND = 50;
     public static final String BEFORE = "before";
     public static final String AFTER = "after";
@@ -47,6 +44,6 @@ public class ApplicationRunner {
         String arrayAsString = Arrays.stream(array)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.joining(","));
-        log.info("{} sort: {}", prefix, arrayAsString);
+        System.out.printf("%s sort: %s%n", prefix, arrayAsString);
     }
 }

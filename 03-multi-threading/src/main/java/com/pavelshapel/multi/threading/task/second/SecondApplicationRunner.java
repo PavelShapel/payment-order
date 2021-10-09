@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
-public class ApplicationRunner {
+public class SecondApplicationRunner {
     public static final String WINDOWS_PATH = "C:/Windows";
     public static final String PATTERN = "###,###.###";
 

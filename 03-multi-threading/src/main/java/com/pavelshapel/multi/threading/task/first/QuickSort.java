@@ -1,22 +1,17 @@
 package com.pavelshapel.multi.threading.task.first;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.ThreadLocalRandom;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(callSuper = true)
+@Value
 public class QuickSort extends RecursiveAction {
     int start;
     int end;
     int[] array;
-
-    public QuickSort(int start, int end, int[] array) {
-        this.array = array;
-        this.start = start;
-        this.end = end;
-    }
 
     private int sort(int start, int end, int[] array) {
         int i = start;

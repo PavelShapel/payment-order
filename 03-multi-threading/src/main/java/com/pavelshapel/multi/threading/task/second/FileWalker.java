@@ -13,7 +13,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.IntStream;
 
-import static com.pavelshapel.multi.threading.task.second.ApplicationRunner.format;
+import static com.pavelshapel.multi.threading.task.second.SecondApplicationRunner.format;
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
