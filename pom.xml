@@ -9,7 +9,8 @@
     <modules>
         <module>common-module</module>
         <module>service-location</module>
-<!--        <module>service-auth</module>-->
+        <module>03-multi-threading</module>
+        <!--        <module>service-auth</module>-->
     </modules>
 
     <parent>
