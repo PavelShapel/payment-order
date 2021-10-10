@@ -28,12 +28,12 @@ public class SecondApplicationRunner {
                 .filter(String.class::isInstance)
                 .map(String.class::cast)
                 .collect(Collectors.toList());
-        System.out.printf("directories count: %s", format(directoriesCount.size()));
-        System.out.printf("%nfiles count: %s", format(filesCount.size()));
-        System.out.printf("%namount files size: %s", format(amountFilesSize));
+        System.out.printf("directories count: %s", formatNumber(directoriesCount.size()));
+        System.out.printf("%nfiles count: %s", formatNumber(filesCount.size()));
+        System.out.printf("%namount files size: %s", formatNumber(amountFilesSize));
     }
 
-    public static String format(long value) {
+    public static String formatNumber(long value) {
         DecimalFormat formatter = new DecimalFormat(PATTERN);
         return formatter.format(value);
     }

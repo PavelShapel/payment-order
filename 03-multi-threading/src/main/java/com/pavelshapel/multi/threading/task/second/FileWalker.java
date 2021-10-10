@@ -13,7 +13,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.IntStream;
 
-import static com.pavelshapel.multi.threading.task.second.SecondApplicationRunner.format;
+import static com.pavelshapel.multi.threading.task.second.SecondApplicationRunner.formatNumber;
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -53,10 +53,10 @@ public class FileWalker extends RecursiveTask<List<Object>> {
                 .mapToLong(Long.class::cast)
                 .sum();
         System.out.printf("thread count[%s] task count[%s] files count[%s] amount files size[%s]\r",
-                format(pool.getActiveThreadCount()),
-                format(pool.getQueuedTaskCount()),
-                format(taskResult.size()),
-                format(amountFilesSize));
+                formatNumber(pool.getActiveThreadCount()),
+                formatNumber(pool.getQueuedTaskCount()),
+                formatNumber(taskResult.size()),
+                formatNumber(amountFilesSize));
         fileSizes.addAll(taskResult);
     }
 }
