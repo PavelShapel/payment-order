@@ -9,7 +9,7 @@
             <charset>utf8</charset>
         </encoder>
     </appender>
-    <appender name="MONGODB" class="com.pavelshapel.multi.threading.task.second.logger.MongoAppender">
+    <appender name="MONGODB" class="com.pavelshapel.nosql.task.second.logger.MongoAppender">
         <collectionName>logs</collectionName>
     </appender>
     <root level="INFO">
