@@ -1,9 +1,7 @@
 package com.pavelshapel.nosql.task.first.entity;
 
 import com.pavelshapel.jpa.spring.boot.starter.entity.AbstractAuditableVersionEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -5,11 +5,14 @@ import com.pavelshapel.nosql.task.first.entity.LocationType;
 import com.pavelshapel.nosql.task.first.repository.LocationTypeMongoRepository;
 import com.pavelshapel.test.spring.boot.starter.container.postgres.MongoDBExtension;
 import com.pavelshapel.test.spring.boot.starter.container.postgres.PostgreSQLExtension;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.stream.LongStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,6 +32,13 @@ class LocationTypeMongoRestControllerTest {
     @BeforeEach
     void setUp() {
         locationTypeMongoRepository.deleteAll();
+        LongStream.range(0, Byte.MAX_VALUE)
+                .mapToObj(id -> {
+                    LocationType locationType = new LocationType();
+                    locationType.setId(id);
+                    locationType.setName(RandomStringUtils.randomAlphanumeric(1, Byte.MAX_VALUE));
+                    return locationType;
+                }).forEach(locationType -> locationTypeJpaService.save(locationType));
     }
 
     @Test
