@@ -89,7 +89,7 @@ class TaskServiceTest {
 
         Task retrievedTask = taskService.findById(savedTask.getId());
 
-        assertThat(retrievedTask).isEqualTo(savedTask);
+        assertThat(retrievedTask.getId()).isEqualTo(savedTask.getId());
     }
 
     @Test
