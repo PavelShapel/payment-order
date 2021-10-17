@@ -1,0 +1,51 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+      status:
+        http-mapping:
+          down: 500
+          out_of_service: 503
+          warning: 500
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    probes:
+      enabled: true
+server:
+  port: 9001
+spring:
+  aop:
+    proxy-target-class: false
+  application:
+    name: @project.artifactId@:@project.version@
+    description: @project.description@
+  data:
+    mongodb:
+      uri: mongodb://mongoadmin:secret@localhost:27017/service-location
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/service-location
+    username: postgres
+    password: postgres
+    initialization-mode: never
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/service-location
+    user: postgres
+    password: postgres
+    change-log: classpath:db/changelog/db.changelog-master.yml
