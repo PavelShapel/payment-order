@@ -1,0 +1,5 @@
+elasticsearch:
+  server: elasticsearch:9200
+  index: audiostream
+server:
+  port: 8888
