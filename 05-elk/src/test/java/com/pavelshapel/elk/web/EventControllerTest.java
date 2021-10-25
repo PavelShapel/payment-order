@@ -3,7 +3,6 @@ package com.pavelshapel.elk.web;
 import com.pavelshapel.elk.entity.Event;
 import com.pavelshapel.elk.entity.EventType;
 import com.pavelshapel.elk.entity.SubEvent;
-import com.pavelshapel.elk.service.EventService;
 import com.pavelshapel.elk.web.provider.OneStringProvider;
 import com.pavelshapel.test.spring.boot.starter.container.ElasticsearchExtension;
 import lombok.SneakyThrows;
@@ -28,8 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(ElasticsearchExtension.class)
 class EventControllerTest {
-    @Autowired
-    private EventService eventService;
     @Autowired
     private EventController eventController;
     @Autowired

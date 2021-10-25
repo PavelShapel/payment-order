@@ -1,5 +1,9 @@
 elasticsearch:
-  server: elasticsearch:9200
-  index: audiostream
+  server: localhost:9200
+  index: production
 server:
-  port: 8888
+  port: 9001
+logging:
+  level:
+    root: INFO
+  file: logfile.log

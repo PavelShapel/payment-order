@@ -6,16 +6,18 @@ import com.pavelshapel.service.location.entity.Location;
 import com.pavelshapel.service.location.entity.LocationType;
 import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Optional;
 
 @DtoConverter
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor
 public class LocationFromDtoConverter implements FromDtoConverter<LocationDto, Location> {
-    @Autowired
-    private JpaService<LocationType> locationTypeJpaService;
-    @Autowired
-    private JpaService<Location> locationJpaService;
+    JpaService<LocationType> locationTypeJpaService;
+    JpaService<Location> locationJpaService;
 
     @Override
     public Location convert(LocationDto locationDto) {

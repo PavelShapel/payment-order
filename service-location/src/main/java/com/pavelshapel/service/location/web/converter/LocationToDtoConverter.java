@@ -13,17 +13,23 @@ public class LocationToDtoConverter implements ToDtoConverter<Location, Location
 
     @Override
     public LocationDto convert(Location location) {
-        Long locationTypeId = Optional.ofNullable(location.getLocationType())
-                .map(AbstractEntity::getId)
-                .orElse(null);
-        Long parentId = Optional.ofNullable(location.getParent())
-                .map(Location::getId)
-                .orElse(null);
         LocationDto locationDto = new LocationDto();
         locationDto.setId(location.getId());
         locationDto.setName(location.getName());
-        locationDto.setLocationTypeId(locationTypeId);
-        locationDto.setParentId(parentId);
+        setLocationType(locationDto, location);
+        setParent(locationDto, location);
         return locationDto;
+    }
+
+    private void setParent(LocationDto locationDto, Location location) {
+        Optional.ofNullable(location.getParent())
+                .map(Location::getId)
+                .ifPresent(locationDto::setParentId);
+    }
+
+    private void setLocationType(LocationDto locationDto, Location location) {
+        Optional.ofNullable(location.getLocationType())
+                .map(AbstractEntity::getId)
+                .ifPresent(locationDto::setLocationTypeId);
     }
 }
