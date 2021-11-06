@@ -1,10 +1,10 @@
 package com.pavelshapel.kafka.client.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pavelshapel.common.module.dto.kafka.client.PizzaOrderDto;
+import com.pavelshapel.common.module.dto.kafka.PizzaOrderDto;
 import com.pavelshapel.common.module.dto.kafka.topic.KafkaTopic;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
-import com.pavelshapel.kafka.client.entity.Pizza;
+import com.pavelshapel.common.module.dto.kafka.Pizza;
 import com.pavelshapel.kafka.client.entity.PizzaOrder;
 import com.pavelshapel.kafka.client.service.PizzaOrderJpaService;
 import com.pavelshapel.kafka.spring.boot.starter.service.KafkaConsumer;
@@ -104,5 +104,4 @@ class PizzaOrderJpaRestControllerTest {
         pizzaOrder.setOrderTime(new Date());
         return pizzaOrder;
     }
-
 }

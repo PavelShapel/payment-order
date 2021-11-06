@@ -1,4 +1,4 @@
-package com.pavelshapel.kafka.client.entity;
+package com.pavelshapel.kafka.palmetto.entity;
 
 import com.pavelshapel.common.module.dto.kafka.Pizza;
 import com.pavelshapel.jpa.spring.boot.starter.entity.AbstractVersionEntity;

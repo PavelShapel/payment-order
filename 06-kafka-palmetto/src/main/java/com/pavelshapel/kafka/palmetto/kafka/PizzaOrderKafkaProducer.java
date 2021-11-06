@@ -1,4 +1,4 @@
-package com.pavelshapel.kafka.client.kafka;
+package com.pavelshapel.kafka.palmetto.kafka;
 
 import com.pavelshapel.common.module.dto.kafka.PizzaOrderDto;
 import com.pavelshapel.kafka.spring.boot.starter.service.AbstractKafkaProducer;

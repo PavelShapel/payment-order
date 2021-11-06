@@ -1,6 +1,6 @@
 package com.pavelshapel.kafka.client.web;
 
-import com.pavelshapel.common.module.dto.kafka.client.PizzaOrderDto;
+import com.pavelshapel.common.module.dto.kafka.PizzaOrderDto;
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchSpecification;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
 import com.pavelshapel.kafka.client.entity.PizzaOrder;

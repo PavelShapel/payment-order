@@ -1,8 +1,8 @@
 package com.pavelshapel.kafka.client.web.converter;
 
-import com.pavelshapel.common.module.dto.kafka.client.PizzaOrderDto;
+import com.pavelshapel.common.module.dto.kafka.PizzaOrderDto;
 import com.pavelshapel.kafka.client.entity.PizzaOrder;
-import com.pavelshapel.kafka.client.entity.Pizza;
+import com.pavelshapel.common.module.dto.kafka.Pizza;
 import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
 
