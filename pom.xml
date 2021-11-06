@@ -12,6 +12,7 @@
         <module>03-multi-threading</module>
         <module>04-no-sql</module>
         <module>05-elk</module>
+        <module>06-kafka-client</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
@@ -32,7 +33,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <testcontainers.version>1.15.2</testcontainers.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
         <postgresql.version>42.2.19</postgresql.version>
         <pavelshapel.version>1.0.0</pavelshapel.version>
         <springfox.version>3.0.0</springfox.version>
@@ -73,6 +74,12 @@
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>elasticsearch</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>kafka</artifactId>
                 <version>${testcontainers.version}</version>
                 <scope>test</scope>
             </dependency>
@@ -123,6 +130,11 @@
             <dependency>
                 <groupId>com.pavelshapel</groupId>
                 <artifactId>common-module</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
+                <artifactId>kafka-spring-boot-starter</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
         </dependencies>
