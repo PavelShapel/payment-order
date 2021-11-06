@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.dto.kafka.client;
+package com.pavelshapel.common.module.dto.kafka;
 
 import com.pavelshapel.web.spring.boot.starter.web.converter.AbstractDto;
 import lombok.AccessLevel;

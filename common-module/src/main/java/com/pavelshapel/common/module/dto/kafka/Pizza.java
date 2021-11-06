@@ -1,4 +1,4 @@
-package com.pavelshapel.kafka.client.entity;
+package com.pavelshapel.common.module.dto.kafka;
 
 import lombok.Getter;
 
