@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Service
@@ -25,10 +26,14 @@ public class PizzaOrderKafkaConsumer implements KafkaConsumer<PizzaOrderDto> {
     @KafkaListener(topics = NOTIFICATION_TOPIC, containerFactory = AbstractKafkaConsumerConfig.SINGLE_FACTORY)
     public PizzaOrderDto receive(PizzaOrderDto dto) {
         log.info("consume.success [{}]", dto);
-        if (nonNull(dto.getCookingEndTime())) {
+        if (canDeliver(dto)) {
             startDelivery(dto);
         }
         return dto;
+    }
+
+    private boolean canDeliver(PizzaOrderDto dto) {
+        return nonNull(dto.getCookingEndTime()) && isNull(dto.getCourierTime());
     }
 
     private void startDelivery(PizzaOrderDto dto) {
