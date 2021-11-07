@@ -51,10 +51,10 @@ class LocationTypeJpaRestControllerTest implements MockLocationType {
         doReturn(mockLocationType).when(locationTypeJpaService).save(any(LocationType.class));
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post(HOME_PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonConverter.writeValueAsString(mockLocationType))
-                .accept(MediaType.APPLICATION_JSON))
+                        .post(HOME_PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonConverter.writeValueAsString(mockLocationType))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -70,10 +70,10 @@ class LocationTypeJpaRestControllerTest implements MockLocationType {
         doReturn(true).when(locationTypeJpaService).existsById(anyLong());
 
         mockMvc.perform(MockMvcRequestBuilders
-                .put(HOME_PATH + ID_PATH, String.valueOf(id))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonConverter.writeValueAsString(mockLocationType))
-                .accept(MediaType.APPLICATION_JSON))
+                        .put(HOME_PATH + ID_PATH, String.valueOf(id))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonConverter.writeValueAsString(mockLocationType))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
