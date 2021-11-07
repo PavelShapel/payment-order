@@ -1,0 +1,11 @@
+spring:
+  kafka:
+    consumer:
+      group-id: @project.artifactId@:@project.version@
+      auto-offset-reset: latest
+    server: kafka:9092
+  aop:
+    proxy-target-class: false
+  application:
+    name: @project.artifactId@:@project.version@
+    description: @project.description@

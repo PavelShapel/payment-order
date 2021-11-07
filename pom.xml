@@ -13,6 +13,8 @@
         <module>04-no-sql</module>
         <module>05-elk</module>
         <module>06-kafka-client</module>
+        <module>06-kafka-palmetto</module>
+        <module>06-kafka-courier</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
