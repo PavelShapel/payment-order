@@ -9,9 +9,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.pavelshapel.cloud.api"})
 public class CloudConsumerApplication {
- 
+
     public static void main(String[] args) {
         SpringApplication.run(CloudConsumerApplication.class, args);
     }
- 
+
 }

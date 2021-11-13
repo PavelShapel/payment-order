@@ -12,7 +12,6 @@ public class ProviderRestController implements Greetingable {
     @Value("${" + GREETING + ":" + GREETING + "}")
     private String greetingFromConsul;
 
-
     @Override
     public String getGreeting() {
         return greetingFromConsul;

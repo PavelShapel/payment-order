@@ -16,7 +16,6 @@ public class CloudGatewayApplication {
         SpringApplication.run(CloudGatewayApplication.class, args);
     }
 
-
     @Bean
     RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -25,7 +24,6 @@ public class CloudGatewayApplication {
                                 .path("/test/**")
                                 .and()
                                 .method(HttpMethod.GET)
-//                                .uri("http://baeldung.com"))
                                 .uri("lb://cloud-consumer"))
                 .build();
     }
