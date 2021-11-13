@@ -15,6 +15,10 @@
         <module>06-kafka-client</module>
         <module>06-kafka-palmetto</module>
         <module>06-kafka-courier</module>
+        <module>07-cloud-api</module>
+        <module>07-cloud-provider</module>
+        <module>07-cloud-consumer</module>
+        <module>07-cloud-gateway</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
@@ -39,10 +43,19 @@
         <postgresql.version>42.2.19</postgresql.version>
         <pavelshapel.version>1.0.0</pavelshapel.version>
         <springfox.version>3.0.0</springfox.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
