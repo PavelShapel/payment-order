@@ -19,6 +19,7 @@
         <module>07-cloud-provider</module>
         <module>07-cloud-consumer</module>
         <module>07-cloud-gateway</module>
+        <module>08-aws-apigateway-lambda-dynamo</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
