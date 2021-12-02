@@ -14,6 +14,7 @@ import com.pavelshapel.aws.lambda.repository.ProductRepository;
 import java.util.Optional;
 
 public class ProductHandler implements RequestHandler<Product, Response> {
+    //ApiGatewayResponse
     private final Regions REGION = Regions.EU_WEST_1;
     private final AmazonDynamoDB amazonDynamoDB = new AmazonDynamoDBClient();
     private final DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB);
