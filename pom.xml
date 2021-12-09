@@ -21,6 +21,7 @@
         <module>07-cloud-gateway</module>
         <module>08-aws-apigateway-lambda-dynamo</module>
         <module>09-aws-ec2</module>
+        <module>10-aws-sns</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
