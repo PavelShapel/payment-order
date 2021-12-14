@@ -22,6 +22,7 @@
         <module>08-aws-apigateway-lambda-dynamo</module>
         <module>09-aws-ec2</module>
         <module>10-aws-sns</module>
+        <module>11-aws-dynamo-advance</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
