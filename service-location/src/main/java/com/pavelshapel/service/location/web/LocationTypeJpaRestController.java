@@ -16,14 +16,14 @@ import static com.pavelshapel.service.location.web.LocationTypeJpaRestController
 
 @RestController
 @RequestMapping(HOME_PATH)
-public class LocationTypeJpaRestController extends AbstractJpaRestController<LocationType, LocationTypeDto> {
+public class LocationTypeJpaRestController extends AbstractJpaRestController<Long, LocationType, LocationTypeDto> {
     public static final String HOME_PATH = "/locationTypes" + StringUtils.EMPTY;
 
     @Autowired
-    public LocationTypeJpaRestController(JpaService<LocationType> locationTypeJpaService,
+    public LocationTypeJpaRestController(JpaService<Long, LocationType> locationTypeJpaService,
                                          SearchSpecification<LocationType> locationTypeSearchSpecification,
-                                         FromDtoConverter<LocationTypeDto, LocationType> locationTypeFromDtoConverter,
-                                         ToDtoConverter<LocationType, LocationTypeDto> locationTypeToDtoConverter) {
+                                         FromDtoConverter<Long, LocationTypeDto, LocationType> locationTypeFromDtoConverter,
+                                         ToDtoConverter<Long, LocationType, LocationTypeDto> locationTypeToDtoConverter) {
         super(locationTypeJpaService, locationTypeSearchSpecification, locationTypeFromDtoConverter, locationTypeToDtoConverter);
     }
 }

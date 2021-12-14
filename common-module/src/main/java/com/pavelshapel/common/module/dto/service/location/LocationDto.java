@@ -1,6 +1,6 @@
 package com.pavelshapel.common.module.dto.service.location;
 
-import com.pavelshapel.web.spring.boot.starter.web.converter.AbstractDto;
+import com.pavelshapel.web.spring.boot.starter.web.dto.rds.AbstractRdsDto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LocationDto extends AbstractDto {
+public class LocationDto extends AbstractRdsDto {
     String name;
     Long locationTypeId;
     Long parentId;

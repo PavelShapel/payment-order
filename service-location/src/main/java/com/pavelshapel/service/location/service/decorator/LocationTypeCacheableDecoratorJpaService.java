@@ -5,8 +5,5 @@ import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.CacheableDe
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.Decorator;
 
 @Decorator
-public class LocationTypeCacheableDecoratorJpaService extends CacheableDecoratorJpaService<LocationType> {
-    public LocationTypeCacheableDecoratorJpaService() {
-        super(LocationType.class);
-    }
+public class LocationTypeCacheableDecoratorJpaService extends CacheableDecoratorJpaService<Long, LocationType> {
 }

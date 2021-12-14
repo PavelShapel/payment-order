@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Import(LocationTypeSearchSpecification.class)
-class LocationTypeJpaRepositoryTest extends AbstractJpaRepositoryTest<LocationType> implements MockLocationType, MockSearchCriteria {
+class LocationTypeJpaRepositoryTest extends AbstractJpaRepositoryTest<Long, LocationType> implements MockLocationType, MockSearchCriteria {
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
     void findAllByNameContaining_WithValidParam_ShouldSaveAndReturnListWithEntity(String name) {

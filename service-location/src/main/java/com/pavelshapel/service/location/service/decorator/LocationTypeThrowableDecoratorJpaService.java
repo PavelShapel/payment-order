@@ -5,5 +5,5 @@ import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.Decorator;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.decorator.ThrowableDecoratorJpaService;
 
 @Decorator
-public class LocationTypeThrowableDecoratorJpaService extends ThrowableDecoratorJpaService<LocationType> {
+public class LocationTypeThrowableDecoratorJpaService extends ThrowableDecoratorJpaService<Long, LocationType> {
 }

@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.web.converter;
 
 import com.pavelshapel.common.module.dto.service.location.LocationDto;
-import com.pavelshapel.jpa.spring.boot.starter.entity.AbstractEntity;
+import com.pavelshapel.jpa.spring.boot.starter.entity.Entity;
 import com.pavelshapel.service.location.entity.Location;
 import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.ToDtoConverter;
@@ -9,7 +9,7 @@ import com.pavelshapel.web.spring.boot.starter.web.converter.ToDtoConverter;
 import java.util.Optional;
 
 @DtoConverter
-public class LocationToDtoConverter implements ToDtoConverter<Location, LocationDto> {
+public class LocationToDtoConverter implements ToDtoConverter<Long, Location, LocationDto> {
 
     @Override
     public LocationDto convert(Location location) {
@@ -29,7 +29,7 @@ public class LocationToDtoConverter implements ToDtoConverter<Location, Location
 
     private void setLocationType(LocationDto locationDto, Location location) {
         Optional.ofNullable(location.getLocationType())
-                .map(AbstractEntity::getId)
+                .map(Entity::getId)
                 .ifPresent(locationDto::setLocationTypeId);
     }
 }

@@ -6,7 +6,7 @@ import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
 
 @DtoConverter
-public class LocationTypeFromDtoConverter implements FromDtoConverter<LocationTypeDto, LocationType> {
+public class LocationTypeFromDtoConverter implements FromDtoConverter<Long, LocationTypeDto, LocationType> {
     @Override
     public LocationType convert(LocationTypeDto locationTypeDto) {
         LocationType locationType = new LocationType();

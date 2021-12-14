@@ -83,4 +83,5 @@
             <artifactId>common-module</artifactId>
         </dependency>
     </dependencies>
+
 </project>

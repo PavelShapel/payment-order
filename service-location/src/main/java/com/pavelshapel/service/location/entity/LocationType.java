@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pavelshapel.jpa.spring.boot.starter.entity.AbstractAuditableVersionEntity;
+import com.pavelshapel.jpa.spring.boot.starter.entity.rds.AbstractAuditableVersionRdsEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -19,7 +19,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-public class LocationType extends AbstractAuditableVersionEntity {
+public class LocationType extends AbstractAuditableVersionRdsEntity {
     @OneToMany(mappedBy = "locationType", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @EqualsAndHashCode.Exclude

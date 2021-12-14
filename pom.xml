@@ -4,42 +4,35 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.pavelshapel</groupId>
+    <artifactId>payment-order</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
+    <name>payment-order</name>
+    <description>Payment order</description>
 
     <modules>
         <module>common-module</module>
         <module>service-location</module>
-        <module>03-multi-threading</module>
-        <module>04-no-sql</module>
-        <module>05-elk</module>
-        <module>06-kafka-client</module>
-        <module>06-kafka-palmetto</module>
-        <module>06-kafka-courier</module>
-        <module>07-cloud-api</module>
-        <module>07-cloud-provider</module>
-        <module>07-cloud-consumer</module>
-        <module>07-cloud-gateway</module>
-        <module>08-aws-apigateway-lambda-dynamo</module>
-        <module>09-aws-ec2</module>
-        <module>10-aws-sns</module>
-        <module>11-aws-dynamo-advance</module>
+        <!--        <module>03-multi-threading</module>-->
+        <!--        <module>04-no-sql</module>-->
+        <!--        <module>05-elk</module>-->
+        <!--        <module>06-kafka-client</module>-->
+        <!--        <module>06-kafka-palmetto</module>-->
+        <!--        <module>06-kafka-courier</module>-->
+        <!--        <module>07-cloud-api</module>-->
+        <!--        <module>07-cloud-provider</module>-->
+        <!--        <module>07-cloud-consumer</module>-->
+        <!--        <module>07-cloud-gateway</module>-->
+        <!--        <module>08-aws-apigateway-lambda-dynamo</module>-->
+        <!--        <module>09-aws-ec2</module>-->
+        <!--        <module>10-aws-sns</module>-->
+        <!--        <module>11-aws-dynamo-advance</module>-->
         <!--        <module>service-auth</module>-->
     </modules>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
-    <groupId>com.pavelshapel</groupId>
-    <artifactId>payment-order</artifactId>
-    <version>1.0.0</version>
-    <name>payment-order</name>
-    <description>Payment order</description>
-
     <properties>
+        <spring.boot.version>2.5.3</spring.boot.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,10 +41,18 @@
         <pavelshapel.version>1.0.0</pavelshapel.version>
         <springfox.version>3.0.0</springfox.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -151,19 +152,19 @@
                 <artifactId>common-module</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.pavelshapel</groupId>
-                <artifactId>kafka-spring-boot-starter</artifactId>
-                <version>${pavelshapel.version}</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>com.pavelshapel</groupId>-->
+            <!--                <artifactId>kafka-spring-boot-starter</artifactId>-->
+            <!--                <version>${pavelshapel.version}</version>-->
+            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-validation</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -176,4 +177,34 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <addResources>false</addResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

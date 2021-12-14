@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
-class LocationTypeJpaServiceTest extends AbstractJpaServiceTest<LocationType> implements MockLocationType {
+class LocationTypeJpaServiceTest extends AbstractJpaServiceTest<Long, LocationType> implements MockLocationType {
     @Mock
     private LocationTypeJpaRepository locationTypeJpaRepository;
     @InjectMocks

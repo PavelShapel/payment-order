@@ -15,9 +15,9 @@ import java.util.Optional;
 @DtoConverter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
-public class LocationFromDtoConverter implements FromDtoConverter<LocationDto, Location> {
-    JpaService<LocationType> locationTypeJpaService;
-    JpaService<Location> locationJpaService;
+public class LocationFromDtoConverter implements FromDtoConverter<Long, LocationDto, Location> {
+    JpaService<Long, LocationType> locationTypeJpaService;
+    JpaService<Long, Location> locationJpaService;
 
     @Override
     public Location convert(LocationDto locationDto) {
