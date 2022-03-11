@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.core.spring.boot.starter.util.StreamUtils;
 import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.provider.OneLongOneStringProvider;

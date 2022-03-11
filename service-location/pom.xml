@@ -15,20 +15,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,31 +44,11 @@
         <!--com.pavelshapel-->
         <dependency>
             <groupId>com.pavelshapel</groupId>
-            <artifactId>test-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
-            <artifactId>json-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
-            <artifactId>core-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
-            <artifactId>jpa-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
-            <artifactId>aop-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
-            <artifactId>cache-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.pavelshapel</groupId>
             <artifactId>web-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>test-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.pavelshapel</groupId>

@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.web;
 
 import com.pavelshapel.common.module.dto.service.location.LocationTypeDto;
-import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.jpa.spring.boot.starter.repository.search.SearchSpecification;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractJpaRestController;

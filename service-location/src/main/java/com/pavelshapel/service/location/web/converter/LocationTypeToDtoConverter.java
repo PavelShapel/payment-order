@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.web.converter;
 
 import com.pavelshapel.common.module.dto.service.location.LocationTypeDto;
-import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.ToDtoConverter;
 

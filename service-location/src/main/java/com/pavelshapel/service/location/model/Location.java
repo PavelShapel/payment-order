@@ -1,7 +1,7 @@
-package com.pavelshapel.service.location.entity;
+package com.pavelshapel.service.location.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pavelshapel.jpa.spring.boot.starter.entity.rds.AbstractAuditableVersionRdsEntity;
+import com.pavelshapel.jpa.spring.boot.starter.model.rdb.AbstractAuditableVersionRdbEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -17,7 +17,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "name"}))
-public class Location extends AbstractAuditableVersionRdsEntity {
+public class Location extends AbstractAuditableVersionRdbEntity {
     @ManyToOne(targetEntity = Location.class)
     @JoinColumn(name = "parent_id")
     @JsonIgnore

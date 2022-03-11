@@ -1,6 +1,6 @@
 package com.pavelshapel.service.location;
 
-import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.model.LocationType;
 
 public interface MockLocationType {
     default LocationType getMockLocationType(String name) {

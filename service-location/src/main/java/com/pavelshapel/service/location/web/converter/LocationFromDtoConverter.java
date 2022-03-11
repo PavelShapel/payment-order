@@ -2,8 +2,8 @@ package com.pavelshapel.service.location.web.converter;
 
 import com.pavelshapel.common.module.dto.service.location.LocationDto;
 import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
-import com.pavelshapel.service.location.entity.Location;
-import com.pavelshapel.service.location.entity.LocationType;
+import com.pavelshapel.service.location.model.Location;
+import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
 import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
 import lombok.AccessLevel;
