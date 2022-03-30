@@ -1,11 +1,11 @@
 package com.pavelshapel.service.location.web.converter;
 
-import com.pavelshapel.common.module.dto.service.location.LocationDto;
-import com.pavelshapel.jpa.spring.boot.starter.service.jpa.JpaService;
+import com.pavelshapel.common.module.dto.service.location.jpa.LocationDto;
+import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
+import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
+import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
 import com.pavelshapel.service.location.model.Location;
 import com.pavelshapel.service.location.model.LocationType;
-import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
-import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,8 +16,8 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @AllArgsConstructor
 public class LocationFromDtoConverter implements FromDtoConverter<Long, LocationDto, Location> {
-    JpaService<Long, LocationType> locationTypeJpaService;
-    JpaService<Long, Location> locationJpaService;
+    DaoService<Long, LocationType> locationTypeDaoService;
+    DaoService<Long, Location> locationDaoService;
 
     @Override
     public Location convert(LocationDto locationDto) {
@@ -31,13 +31,13 @@ public class LocationFromDtoConverter implements FromDtoConverter<Long, Location
 
     private void setParent(LocationDto locationDto, Location location) {
         Optional.ofNullable(locationDto.getParentId())
-                .map(locationJpaService::findById)
+                .map(locationDaoService::findById)
                 .ifPresent(location::setParent);
     }
 
     private void setLocationType(LocationDto locationDto, Location location) {
         Optional.ofNullable(locationDto.getLocationTypeId())
-                .map(locationTypeJpaService::findById)
+                .map(locationTypeDaoService::findById)
                 .ifPresent(location::setLocationType);
     }
 }

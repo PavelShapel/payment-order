@@ -1,9 +1,9 @@
 package com.pavelshapel.service.location.web.converter;
 
-import com.pavelshapel.common.module.dto.service.location.LocationTypeDto;
+import com.pavelshapel.common.module.dto.service.location.jpa.LocationTypeDto;
+import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
+import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.service.location.model.LocationType;
-import com.pavelshapel.web.spring.boot.starter.web.converter.DtoConverter;
-import com.pavelshapel.web.spring.boot.starter.web.converter.FromDtoConverter;
 
 @DtoConverter
 public class LocationTypeFromDtoConverter implements FromDtoConverter<Long, LocationTypeDto, LocationType> {

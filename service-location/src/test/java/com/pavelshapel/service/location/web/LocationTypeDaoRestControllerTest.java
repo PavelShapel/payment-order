@@ -1,14 +1,14 @@
 package com.pavelshapel.service.location.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pavelshapel.service.location.model.LocationType;
-import com.pavelshapel.core.spring.boot.starter.util.StreamUtils;
+import com.pavelshapel.core.spring.boot.starter.CoreStarterAutoConfiguration;
 import com.pavelshapel.service.location.MockLocationType;
+import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.service.location.provider.OneLongOneStringProvider;
 import com.pavelshapel.service.location.provider.OneStringProvider;
 import com.pavelshapel.service.location.repository.search.LocationTypeSearchSpecification;
-import com.pavelshapel.service.location.service.LocationJpaService;
-import com.pavelshapel.service.location.service.LocationTypeJpaService;
+import com.pavelshapel.service.location.service.LocationDaoService;
+import com.pavelshapel.service.location.service.LocationTypeDaoService;
 import com.pavelshapel.web.spring.boot.starter.WebStarterAutoConfiguration;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -20,35 +20,35 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.pavelshapel.service.location.web.LocationTypeJpaRestController.HOME_PATH;
-import static com.pavelshapel.web.spring.boot.starter.web.AbstractJpaRestController.ID_PATH;
+import static com.pavelshapel.service.location.web.LocationTypeDaoRestController.HOME_PATH;
+import static com.pavelshapel.web.spring.boot.starter.web.AbstractDaoRestController.ID_PATH;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(LocationTypeJpaRestController.class)
+@WebMvcTest(LocationTypeDaoRestController.class)
 @Import({
-        StreamUtils.class,
+        CoreStarterAutoConfiguration.class,
         LocationTypeSearchSpecification.class,
         WebStarterAutoConfiguration.class
 })
-class LocationTypeJpaRestControllerTest implements MockLocationType {
+class LocationTypeDaoRestControllerTest implements MockLocationType {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper jsonConverter;
     @MockBean
-    private LocationTypeJpaService locationTypeJpaService;
+    private LocationTypeDaoService locationTypeDaoService;
     @MockBean
-    private LocationJpaService locationJpaService;
+    private LocationDaoService locationDaoService;
 
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
     void post_WithValidParam_ShouldCreateAndReturnEntity(String name) throws Exception {
         LocationType mockLocationType = getMockLocationType(name);
-        doReturn(mockLocationType).when(locationTypeJpaService).save(any(LocationType.class));
+        doReturn(mockLocationType).when(locationTypeDaoService).save(any(LocationType.class));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post(HOME_PATH)
@@ -66,8 +66,8 @@ class LocationTypeJpaRestControllerTest implements MockLocationType {
     void put_WithValidParam_ShouldCreateAndReturnEntity(Long id, String name) throws Exception {
         LocationType mockLocationType = getMockLocationType(name);
         mockLocationType.setId(id);
-        doReturn(mockLocationType).when(locationTypeJpaService).update(anyLong(), any(LocationType.class));
-        doReturn(true).when(locationTypeJpaService).existsById(anyLong());
+        doReturn(mockLocationType).when(locationTypeDaoService).update(anyLong(), any(LocationType.class));
+        doReturn(true).when(locationTypeDaoService).existsById(anyLong());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put(HOME_PATH + ID_PATH, String.valueOf(id))
