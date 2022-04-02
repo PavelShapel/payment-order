@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: service-auth.create-table.user
+      id: service-auth.create-table.users
       author: pavelshapel
       changes:
         - createTable:
-            tableName: user
+            tableName: users
             columns:
               - column:
                   name: id
@@ -16,6 +16,7 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(127)
+                  defaultValue: mandatory
                   constraints:
                     nullable: false
               - column:
@@ -26,11 +27,13 @@ databaseChangeLog:
               - column:
                   name: created_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
                   name: last_modified_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
@@ -67,6 +70,7 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(127)
+                  defaultValue: mandatory
                   constraints:
                     nullable: false
               - column:
@@ -77,11 +81,13 @@ databaseChangeLog:
               - column:
                   name: created_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
                   name: last_modified_date
                   type: timestamp
+                  defaultValueComputed: current_timestamp()
                   constraints:
                     nullable: false
               - column:
@@ -122,7 +128,7 @@ databaseChangeLog:
             baseTableName: user_role
             baseTableSchemaName: public
             referencedColumnNames: id
-            referencedTableName: user
+            referencedTableName: users
             referencedTableSchemaName: public
             validate: true
   - changeSet:

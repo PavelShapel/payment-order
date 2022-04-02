@@ -6,7 +6,6 @@ import com.pavelshapel.service.auth.entity.RoleType;
 import com.pavelshapel.service.auth.entity.User;
 import com.pavelshapel.service.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,8 +15,8 @@ public class UserJpaService extends AbstractJpaService<User> {
     @Autowired
     private RoleJpaService roleJpaService;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User create() {
@@ -27,7 +26,8 @@ public class UserJpaService extends AbstractJpaService<User> {
     @Override
     public User save(User entity) {
         Role roleUser = roleJpaService.findByRoleType(RoleType.ROLE_USER);
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        entity.setPassword(entity.getPassword());
+//        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         entity.setRoles(Collections.singleton(roleUser));
         return getJpaRepository().save(entity);
     }
