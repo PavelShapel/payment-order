@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>com.pavelshapel</groupId>
-            <artifactId>web-spring-boot-starter</artifactId>
+            <artifactId>core-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

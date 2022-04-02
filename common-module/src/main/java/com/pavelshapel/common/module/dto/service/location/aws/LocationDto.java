@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 @ToString(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LocationDto extends AbstractParentalDto<String> {
+    String name;
     String locationType;
 }
 
