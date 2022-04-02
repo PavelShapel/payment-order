@@ -1,0 +1,9 @@
+spring:
+  aws:
+    access-key: AKIAZIIHNHSVKZI3URNL
+    secret-key: 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
+#    region: eu-west-1
+#    endpoint: dynamodb.eu-west-1.amazonaws.com
+
+server:
+  port: 8081
