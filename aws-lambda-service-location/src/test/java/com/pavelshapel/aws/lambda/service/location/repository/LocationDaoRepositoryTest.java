@@ -26,17 +26,17 @@ class LocationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<String
     @BeforeEach
     void setUp() {
         String tableName = Location.class.getSimpleName().toLowerCase();
-        Optional.ofNullable(createTableIfNotExists(tableName))
-                .orElseGet(() -> deleteAll(Location.class).toString());
+        Optional.ofNullable(getDynamoDbHandler().createDefaultTable(tableName))
+                .orElseGet(() -> getDynamoDbHandler().deleteAll(Location.class).toString());
     }
 
     @ParameterizedTest
     @ArgumentsSource(OneStringProvider.class)
-    void findAll_WithValidParam_ShouldReturnListWithEntity(String name) {
+    void findAll_WithValidParam_ShouldReturnEntities(String name) {
         LocationType randomisedEnum = randomUtils.getRandomisedEnum(LocationType.class)
                 .orElseThrow(RuntimeException::new);
         Location mockLocation = getMockLocation(null, null, name, randomisedEnum);
-        Location savedLocation = save(mockLocation);
+        Location savedLocation = getDynamoDbHandler().save(mockLocation);
 
         List<Location> locations = streamUtils.iterableToList(getDaoRepository().findAll());
 

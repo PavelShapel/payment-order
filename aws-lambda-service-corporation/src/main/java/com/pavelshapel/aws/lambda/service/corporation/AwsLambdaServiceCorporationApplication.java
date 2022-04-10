@@ -1,4 +1,4 @@
-package com.pavelshapel.aws.lambda.service.location;
+package com.pavelshapel.aws.lambda.service.corporation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
         DataSourceAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class
 })
-public class AwsLambdaServiceLocationApplication {
+public class AwsLambdaServiceCorporationApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AwsLambdaServiceLocationApplication.class, args);
+        SpringApplication.run(AwsLambdaServiceCorporationApplication.class, args);
     }
 }

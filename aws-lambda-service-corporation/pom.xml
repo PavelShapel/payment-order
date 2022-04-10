@@ -7,11 +7,10 @@
         <groupId>com.pavelshapel</groupId>
         <version>1.0.0</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>aws-lambda-service-location</artifactId>
-    <description>AWS lambda - Service location</description>
+    <artifactId>aws-lambda-service-corporation</artifactId>
+    <description>AWS lambda - Service corporation</description>
 
     <dependencies>
         <dependency>
