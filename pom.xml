@@ -15,6 +15,7 @@
         <module>common-module</module>
         <module>service-location</module>
         <module>aws-lambda-service-location</module>
+        <module>aws-lambda-service-corporation</module>
         <!--        <module>service-auth</module>-->
     </modules>
 
@@ -26,8 +27,10 @@
         <testcontainers.version>1.16.3</testcontainers.version>
         <postgresql.version>42.2.19</postgresql.version>
         <pavelshapel.version>1.0.0</pavelshapel.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud-dependencies.version>2021.0.1</spring-cloud-dependencies.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+        <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+        <boot.property>boot</boot.property>
     </properties>
 
     <dependencyManagement>
@@ -42,9 +45,9 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
+                <version>${spring-cloud-dependencies.version}</version>
                 <scope>import</scope>
+                <type>pom</type>
             </dependency>
 
             <dependency>
