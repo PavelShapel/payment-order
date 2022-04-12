@@ -18,14 +18,9 @@ public class CorporationCrudDecoratorDaoService extends AbstractDecoratorSpecifi
         return super.save(corporation);
     }
 
-    @Override
-    public Corporation update(String id, Corporation corporation) {
-        verifyAppropriateType(corporation);
-        return super.update(id, corporation);
-    }
-
     private void verifyAppropriateType(Corporation corporation) {
         Optional.ofNullable(corporation)
+                .filter(unused -> getCount() > 0)
                 .map(Corporation::getTyped)
                 .map(Typed::getType)
                 .map(type -> getParentAppropriateTypes(corporation).contains(type))

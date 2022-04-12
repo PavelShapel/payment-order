@@ -43,14 +43,14 @@ public class CorporationFromDtoConverter implements FromDtoConverter<String, Cor
         return Optional.ofNullable(typed)
                 .map(Typed::getType)
                 .map(Type::valueOf)
-                .map(this::getTypedClass)
+                .flatMap(this::getTypedClass)
                 .flatMap(targetClass -> jacksonJsonConverter.mapToPojo(((TypedDto) typed), targetClass))
                 .orElse(null);
     }
 
-    private Class<Typed<Type>> getTypedClass(Type type) {
-        return (Class<Typed<Type>>) typedBeansCollection.getBean(typed -> typed.getType().equals(type))
-                .map(Object::getClass)
-                .orElse(null);
+    private Optional<Class<Typed<Type>>> getTypedClass(Type type) {
+        return typedBeansCollection.getBean(typed -> typed.getType().equals(type))
+                .map(Typed::getClass)
+                .map(targetClass -> (Class<Typed<Type>>) targetClass);
     }
 }
