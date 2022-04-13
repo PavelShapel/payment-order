@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.service;
 
 import com.pavelshapel.core.spring.boot.starter.impl.service.AbstractSpecificationDaoService;
-import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.DaoDecorate;
+import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.DecorateDaoService;
 import com.pavelshapel.service.location.model.Location;
 import com.pavelshapel.service.location.service.decorator.LocationCacheableDecoratorDaoService;
 import com.pavelshapel.service.location.service.decorator.LocationThrowableDecoratorDaoService;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@DaoDecorate(decorations = {
+@DecorateDaoService(decorations = {
         LocationCacheableDecoratorDaoService.class,
         LocationThrowableDecoratorDaoService.class})
 @Transactional

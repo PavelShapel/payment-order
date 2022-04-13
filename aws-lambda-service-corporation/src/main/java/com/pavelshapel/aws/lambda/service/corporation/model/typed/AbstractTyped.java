@@ -1,20 +1,21 @@
-package com.pavelshapel.aws.lambda.service.corporation.model.typed.base;
+package com.pavelshapel.aws.lambda.service.corporation.model.typed;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.core.spring.boot.starter.api.model.Named;
 import com.pavelshapel.core.spring.boot.starter.api.model.Typed;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import lombok.*;
 
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode
+@ToString
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractTyped implements Typed<Type>, Named {
     @JsonIgnore
-    Type type;
-    String name;
+    private final Type type;
+    @Getter
+    @Setter
+    private String name;
 
     @JsonProperty
     public Type getType() {
@@ -23,8 +24,6 @@ public abstract class AbstractTyped implements Typed<Type>, Named {
 
     @JsonIgnore
     public void setType(Type type) {
-        this.type = type;
+        throw new UnsupportedOperationException();
     }
-
-    protected abstract void postConstruct();
 }

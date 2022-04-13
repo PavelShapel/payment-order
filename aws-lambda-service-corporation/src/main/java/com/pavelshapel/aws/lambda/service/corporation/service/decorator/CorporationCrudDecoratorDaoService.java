@@ -3,8 +3,8 @@ package com.pavelshapel.aws.lambda.service.corporation.service.decorator;
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.core.spring.boot.starter.api.model.Typed;
-import com.pavelshapel.core.spring.boot.starter.api.service.decorator.Decorator;
 import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.AbstractDecoratorSpecificationDaoService;
+import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.Decorator;
 
 import java.util.Collections;
 import java.util.List;
