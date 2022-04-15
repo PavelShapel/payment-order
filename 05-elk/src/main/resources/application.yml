@@ -1,9 +1,0 @@
-elasticsearch:
-  server: localhost:9200
-  index: production
-server:
-  port: 9001
-logging:
-  level:
-    root: INFO
-  file: logfile.log
