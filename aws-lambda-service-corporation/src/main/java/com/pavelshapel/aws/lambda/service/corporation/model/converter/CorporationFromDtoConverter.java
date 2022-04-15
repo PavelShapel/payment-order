@@ -8,18 +8,18 @@ import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.model.Typed;
 import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
-import com.pavelshapel.core.spring.boot.starter.impl.model.TypedDto;
+import com.pavelshapel.core.spring.boot.starter.impl.model.AbstractParentalDto;
 import com.pavelshapel.json.spring.boot.starter.converter.JsonConverter;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Optional;
 
 @DtoConverter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@AllArgsConstructor
-public class CorporationFromDtoConverter implements FromDtoConverter<String, CorporationDto, Corporation> {
+@RequiredArgsConstructor
+public class CorporationFromDtoConverter extends AbstractFromDtoConverter implements FromDtoConverter<String, CorporationDto, Corporation> {
     DaoService<String, Corporation> corporationDaoService;
     JsonConverter jacksonJsonConverter;
     BeansCollection<Typed<Type>> typedBeansCollection;
@@ -29,28 +29,21 @@ public class CorporationFromDtoConverter implements FromDtoConverter<String, Cor
         Corporation corporation = new Corporation();
         corporation.setId(corporationDto.getId());
         setParent(corporationDto, corporation);
-        corporation.setTyped(getTyped(corporationDto.getTyped()));
+        setTyped(corporationDto, corporation);
         return corporation;
     }
 
     private void setParent(CorporationDto corporationDto, Corporation corporation) {
-        Optional.ofNullable(corporationDto.getParent())
+        Optional.ofNullable(corporationDto)
+                .map(AbstractParentalDto::getParent)
                 .map(corporationDaoService::findById)
                 .ifPresent(corporation::setParent);
     }
 
-    private Typed<Type> getTyped(Typed<String> typed) {
-        return Optional.ofNullable(typed)
-                .map(Typed::getType)
-                .map(Type::valueOf)
-                .flatMap(this::getTypedClass)
-                .flatMap(targetClass -> jacksonJsonConverter.mapToPojo(((TypedDto) typed), targetClass))
-                .orElse(null);
-    }
-
-    private Optional<Class<Typed<Type>>> getTypedClass(Type type) {
-        return typedBeansCollection.getBean(typed -> typed.getType().equals(type))
-                .map(Typed::getClass)
-                .map(targetClass -> (Class<Typed<Type>>) targetClass);
+    private void setTyped(CorporationDto corporationDto, Corporation corporation) {
+        Optional.ofNullable(corporationDto)
+                .map(CorporationDto::getTyped)
+                .flatMap(typed -> getMatchedTyped(typed, jacksonJsonConverter, typedBeansCollection))
+                .ifPresent(corporation::setTyped);
     }
 }
