@@ -2,7 +2,6 @@ package com.pavelshapel.aws.lambda.service.corporation.model.typed.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.aws.lambda.service.corporation.model.typed.AbstractTyped;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,8 +20,7 @@ public abstract class AbstractCompany extends AbstractTyped {
     @JsonIgnore
     private final Integer paymentQueue;
 
-    protected AbstractCompany(Type type, Integer paymentQueue) {
-        super(type);
+    protected AbstractCompany(Integer paymentQueue) {
         this.paymentQueue = paymentQueue;
     }
 
@@ -33,6 +31,6 @@ public abstract class AbstractCompany extends AbstractTyped {
 
     @JsonIgnore
     public void setPaymentQueue(Integer paymentQueue) {
-        throw new UnsupportedOperationException();
+        //unused
     }
 }

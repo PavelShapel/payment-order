@@ -1,5 +1,6 @@
-package com.pavelshapel.aws.lambda.service.corporation.model.typed.company;
+package com.pavelshapel.aws.lambda.service.corporation.model.typed.separator;
 
+import com.pavelshapel.aws.lambda.service.corporation.model.typed.AbstractTyped;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.context.annotation.Scope;
@@ -11,5 +12,5 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 @ToString(callSuper = true)
 @Component
 @Scope(SCOPE_PROTOTYPE)
-public class Owner extends AbstractOtherCompany {
+public class Customers extends AbstractTyped {
 }

@@ -9,11 +9,13 @@ import static java.util.Collections.emptyList;
 
 public enum Type {
     OWNER,
-    BANKS;
+    BANKS,
+    CUSTOMERS;
 
     static {
-        OWNER.types = asList(BANKS);
+        OWNER.types = asList(BANKS, CUSTOMERS);
         BANKS.types = emptyList();
+        CUSTOMERS.types = emptyList();
     }
 
     @Getter

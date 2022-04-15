@@ -9,13 +9,16 @@ import lombok.*;
 
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractTyped implements Typed<Type>, Named {
     @JsonIgnore
     private final Type type;
     @Getter
     @Setter
     private String name;
+
+    protected AbstractTyped() {
+        this.type = Type.valueOf(getClass().getSimpleName().toUpperCase());
+    }
 
     @JsonProperty
     public Type getType() {
@@ -24,6 +27,6 @@ public abstract class AbstractTyped implements Typed<Type>, Named {
 
     @JsonIgnore
     public void setType(Type type) {
-        throw new UnsupportedOperationException();
+        //unused
     }
 }
