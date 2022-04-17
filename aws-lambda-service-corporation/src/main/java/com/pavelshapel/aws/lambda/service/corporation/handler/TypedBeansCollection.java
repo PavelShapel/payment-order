@@ -1,4 +1,4 @@
-package com.pavelshapel.aws.lambda.service.corporation.model.converter;
+package com.pavelshapel.aws.lambda.service.corporation.handler;
 
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.core.spring.boot.starter.api.model.Typed;

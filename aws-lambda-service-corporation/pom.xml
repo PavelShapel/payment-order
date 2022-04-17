@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>aws-lambda-service-corporation</artifactId>
-    <description>AWS lambda - Service corporation</description>
+    <description>AWS lambda - service corporation</description>
 
     <dependencies>
         <dependency>
