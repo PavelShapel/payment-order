@@ -5,7 +5,6 @@ import com.pavelshapel.aws.lambda.service.corporation.handler.BeanHandler;
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.aws.lambda.service.corporation.model.typed.AbstractTyped;
-import com.pavelshapel.core.spring.boot.starter.api.util.RandomUtils;
 import com.pavelshapel.core.spring.boot.starter.api.util.StreamUtils;
 import com.pavelshapel.test.spring.boot.starter.layer.AbstractDynamoDbDaoRepositoryTest;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -27,8 +26,6 @@ import static com.pavelshapel.core.spring.boot.starter.api.model.Versioned.VERSI
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<String, Corporation> implements MockCorporation {
-    @Autowired
-    private RandomUtils randomUtils;
     @Autowired
     private StreamUtils streamUtils;
     @Autowired
@@ -100,6 +97,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     void saveAll_WithValidParam_ShouldSaveAndReturnEntities() {
         List<Corporation> corporations = Arrays.stream(Type.values())
                 .map(type -> typedBeanHandler.getTypedBean(type))
+                .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .collect(Collectors.toList());
@@ -130,6 +128,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     void findAllById_WithValidParam_ShouldReturnEntities() {
         List<Corporation> corporations = Arrays.stream(Type.values())
                 .map(type -> typedBeanHandler.getTypedBean(type))
+                .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .collect(Collectors.toList());

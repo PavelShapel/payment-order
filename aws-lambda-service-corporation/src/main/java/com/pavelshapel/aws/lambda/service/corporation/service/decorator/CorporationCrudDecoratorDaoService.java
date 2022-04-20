@@ -23,14 +23,13 @@ public class CorporationCrudDecoratorDaoService extends AbstractDecoratorSpecifi
                 .filter(unused -> getCount() > 0)
                 .map(Corporation::getTyped)
                 .map(Typed::getType)
-                .map(type -> getParentAppropriateTypes(corporation).contains(type))
-                .filter(Boolean.FALSE::equals)
-                .ifPresent(unused -> throwMismatchedTypeException());
+                .filter(type -> !getParentAppropriateTypes(corporation).contains(type))
+                .ifPresent(this::throwMismatchedTypeException);
 
     }
 
-    private void throwMismatchedTypeException() {
-        throw new IllegalArgumentException("mismatched type");
+    private void throwMismatchedTypeException(Type type) {
+        throw new IllegalArgumentException(String.format("mismatched type [%s]", type));
     }
 
     private List<Type> getParentAppropriateTypes(Corporation corporation) {
