@@ -1,6 +1,6 @@
 package com.pavelshapel.aws.lambda.service.corporation.model.converter;
 
-import com.pavelshapel.aws.lambda.service.corporation.handler.BeanHandler;
+import com.pavelshapel.aws.lambda.service.corporation.handler.Handler;
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
 import com.pavelshapel.common.module.dto.service.location.aws.CorporationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CorporationFromDtoConverter implements FromDtoConverter<String, CorporationDto, Corporation> {
     DaoService<String, Corporation> corporationDaoService;
-    BeanHandler typedBeanHandler;
+    Handler typedHandler;
 
     @Override
     public Corporation convert(CorporationDto corporationDto) {
@@ -39,7 +39,7 @@ public class CorporationFromDtoConverter implements FromDtoConverter<String, Cor
     private void setTyped(CorporationDto corporationDto, Corporation corporation) {
         Optional.ofNullable(corporationDto)
                 .map(CorporationDto::getTyped)
-                .flatMap(typedBeanHandler::getTypedBean)
+                .flatMap(typedHandler::getTyped)
                 .ifPresent(corporation::setTyped);
     }
 }

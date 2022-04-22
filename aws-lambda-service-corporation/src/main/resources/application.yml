@@ -1,3 +1,5 @@
 spring:
   aws:
-    created-tables: corporation
+    dynamo-db:
+      enable: true
+      created-tables: corporation

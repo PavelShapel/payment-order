@@ -6,12 +6,12 @@ import com.pavelshapel.core.spring.boot.starter.impl.model.TypedDto;
 
 import java.util.Optional;
 
-public interface BeanHandler {
-    Optional<Typed<Type>> getTypedBean(TypedDto typedDto);
+public interface Handler {
+    Optional<? extends Typed<Type>> getTyped(TypedDto typedDto);
 
-    Optional<Typed<Type>> getTypedBean(Type type);
+    Optional<? extends Typed<Type>> getTyped(Type type);
 
-    Optional<Typed<Type>> deserializeTypedBean(String json);
+    Optional<? extends Typed<Type>> deserializeTyped(String json);
 
     Optional<String> serializeTypedBean(Typed<Type> typed);
 }

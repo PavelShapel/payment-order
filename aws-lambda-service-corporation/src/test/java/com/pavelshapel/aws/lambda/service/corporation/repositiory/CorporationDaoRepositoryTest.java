@@ -1,7 +1,7 @@
 package com.pavelshapel.aws.lambda.service.corporation.repositiory;
 
 import com.pavelshapel.aws.lambda.service.corporation.MockCorporation;
-import com.pavelshapel.aws.lambda.service.corporation.handler.BeanHandler;
+import com.pavelshapel.aws.lambda.service.corporation.handler.Handler;
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.aws.lambda.service.corporation.model.typed.AbstractTyped;
@@ -29,7 +29,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @Autowired
     private StreamUtils streamUtils;
     @Autowired
-    private BeanHandler typedBeanHandler;
+    private Handler typedHandler;
 
     @BeforeEach
     void setUp() {
@@ -45,7 +45,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @ParameterizedTest
     @EnumSource(Type.class)
     void save_WithValidParam_ShouldSaveEntityAndFillInAuditableFields(Type type) {
-        Corporation mockCorporation = typedBeanHandler.getTypedBean(type)
+        Corporation mockCorporation = typedHandler.getTyped(type)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
 
@@ -68,7 +68,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @ParameterizedTest
     @EnumSource(Type.class)
     void update_WithValidParam_ShouldUpdateEntityAndFillInAuditableFields(Type type) {
-        Corporation mockCorporation = typedBeanHandler.getTypedBean(type)
+        Corporation mockCorporation = typedHandler.getTyped(type)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
         Corporation savedCorporation = getDynamoDbHandler().save(mockCorporation);
@@ -96,7 +96,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @Test
     void saveAll_WithValidParam_ShouldSaveAndReturnEntities() {
         List<Corporation> corporations = Arrays.stream(Type.values())
-                .map(type -> typedBeanHandler.getTypedBean(type))
+                .map(type -> typedHandler.getTyped(type))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(typed -> getMockCorporation(null, null, typed))
@@ -112,7 +112,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @ParameterizedTest
     @EnumSource(Type.class)
     void findById_WithValidParam_ShouldReturnEntity(Type type) {
-        Corporation mockCorporation = typedBeanHandler.getTypedBean(type)
+        Corporation mockCorporation = typedHandler.getTyped(type)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
         Corporation savedCorporation = getDynamoDbHandler().save(mockCorporation);
@@ -127,7 +127,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
     @Test
     void findAllById_WithValidParam_ShouldReturnEntities() {
         List<Corporation> corporations = Arrays.stream(Type.values())
-                .map(type -> typedBeanHandler.getTypedBean(type))
+                .map(type -> typedHandler.getTyped(type))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(typed -> getMockCorporation(null, null, typed))
