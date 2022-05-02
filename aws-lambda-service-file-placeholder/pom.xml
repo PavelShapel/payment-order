@@ -11,16 +11,50 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>aws-lambda-service-file-placeholder</artifactId>
-    <description>AWS lambda - Service file placeholder</description>
+    <description>AWS lambda - service file placeholder</description>
+
+    <properties>
+        <start-class>com.pavelshapel.aws.lambda.service.file.placeholder.AwsLambdaServiceFilePlaceholderApplication</start-class>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-lambda-java-core</artifactId>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>aws-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.amazonaws</groupId>
+                    <artifactId>aws-java-sdk-dynamodb</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.amazonaws</groupId>
+                    <artifactId>aws-java-sdk-sqs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.derjust</groupId>
+                    <artifactId>spring-data-dynamodb</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.amazonaws.serverless</groupId>
+                    <artifactId>aws-serverless-java-container-springboot2</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.pavelshapel</groupId>
+                    <artifactId>aop-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-lambda-java-events</artifactId>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>json-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>common-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>test-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
@@ -30,7 +64,32 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>${maven-shade-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring.boot.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                            <resource>META-INF/spring.handlers</resource>
+                        </transformer>
+                        <transformer
+                                implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
+                            <resource>META-INF/spring.factories</resource>
+                        </transformer>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                            <resource>META-INF/spring.schemas</resource>
+                        </transformer>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>${start-class}</mainClass>
+                        </transformer>
+                    </transformers>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>shaded</shadedClassifierName>
                 </configuration>
                 <executions>
                     <execution>
@@ -38,6 +97,13 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.apache.tomcat.embed:*</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -1,0 +1,2 @@
+12${number}
+51${curAbbreviation}
