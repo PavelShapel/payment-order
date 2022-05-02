@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.dto.service.location.jpa;
+package com.pavelshapel.common.module.dto.jpa;
 
 import com.pavelshapel.core.spring.boot.starter.impl.model.AbstractDto;
 import lombok.AccessLevel;
@@ -11,6 +11,9 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LocationTypeDto extends AbstractDto<Long> {
+public class LocationDto extends AbstractDto<Long> {
     String name;
+    Long locationTypeId;
+    Long parentId;
 }
+

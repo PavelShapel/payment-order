@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.dto.service.location.aws;
+package com.pavelshapel.common.module.dto.aws;
 
 import com.pavelshapel.core.spring.boot.starter.impl.model.AbstractParentalDto;
 import com.pavelshapel.core.spring.boot.starter.impl.model.TypedDto;

@@ -1,4 +1,4 @@
-package com.pavelshapel.common.module.dto.kafka.topic;
+package com.pavelshapel.common.module.dto.kafka;
 
 import lombok.Getter;
 import org.apache.kafka.clients.admin.NewTopic;
