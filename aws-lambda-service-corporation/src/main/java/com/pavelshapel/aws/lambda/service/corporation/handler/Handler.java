@@ -11,7 +11,7 @@ public interface Handler {
 
     Optional<? extends Typed<Type>> getTyped(Type type);
 
-    Optional<? extends Typed<Type>> deserializeTyped(String json);
+    Typed<Type> deserializeTyped(String json);
 
-    Optional<String> serializeTypedBean(Typed<Type> typed);
+    String serializeTypedBean(Typed<Type> typed);
 }

@@ -1,7 +1,7 @@
 package com.pavelshapel.aws.lambda.service.corporation.web;
 
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
-import com.pavelshapel.common.module.dto.service.location.aws.CorporationDto;
+import com.pavelshapel.common.module.dto.aws.CorporationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;

@@ -18,7 +18,7 @@ import static java.util.Collections.singletonMap;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class TypedHandler implements Handler {
-    JsonConverter jacksonJsonConverter;
+    JsonConverter jsonConverter;
 
     @Override
     public Optional<? extends Typed<Type>> getTyped(TypedDto typedDto) {
@@ -26,7 +26,7 @@ public class TypedHandler implements Handler {
                 .map(Typed::getType)
                 .map(Type::valueOf)
                 .map(Type::getTargetClass)
-                .flatMap(targetClass -> jacksonJsonConverter.mapToPojo(typedDto, targetClass));
+                .map(targetClass -> jsonConverter.mapToPojo(typedDto, targetClass));
     }
 
     @Override
@@ -40,13 +40,13 @@ public class TypedHandler implements Handler {
     }
 
     @Override
-    public Optional<? extends Typed<Type>> deserializeTyped(String json) {
-        return jacksonJsonConverter.jsonToPojo(json, TypedDto.class)
-                .flatMap(this::getTyped);
+    public Typed<Type> deserializeTyped(String json) {
+        TypedDto typedDto = jsonConverter.jsonToPojo(json, TypedDto.class);
+        return getTyped(typedDto).orElse(null);
     }
 
     @Override
-    public Optional<String> serializeTypedBean(Typed<Type> typed) {
-        return jacksonJsonConverter.pojoToJson(typed);
+    public String serializeTypedBean(Typed<Type> typed) {
+        return jsonConverter.pojoToJson(typed);
     }
 }

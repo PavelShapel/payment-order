@@ -2,4 +2,4 @@ spring:
   aws:
     dynamo-db:
       enable: true
-      created-tables: corporation
+      table: corporation

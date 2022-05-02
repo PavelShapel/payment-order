@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.pavelshapel.core.spring.boot.starter.api.model.Dated.CREATED_DATE;
-import static com.pavelshapel.core.spring.boot.starter.api.model.Dated.LAST_MODIFIED_DATE;
+import static com.pavelshapel.core.spring.boot.starter.api.model.Dated.CREATED_DATE_FIELD;
+import static com.pavelshapel.core.spring.boot.starter.api.model.Dated.LAST_MODIFIED_DATE_FIELD;
 import static com.pavelshapel.core.spring.boot.starter.api.model.Entity.ID_FIELD;
 import static com.pavelshapel.core.spring.boot.starter.api.model.Versioned.VERSION_FIELD;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,10 +55,10 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
                 .extracting(ID_FIELD)
                 .isNotNull();
         assertThat(savedCorporation)
-                .extracting(CREATED_DATE)
+                .extracting(CREATED_DATE_FIELD)
                 .isNotNull();
         assertThat(savedCorporation)
-                .extracting(LAST_MODIFIED_DATE)
+                .extracting(LAST_MODIFIED_DATE_FIELD)
                 .isNotNull();
         assertThat(savedCorporation)
                 .extracting(VERSION_FIELD)
@@ -83,10 +83,10 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
                 .extracting(ID_FIELD)
                 .isEqualTo(savedCorporation.getId());
         assertThat(updatedCorporation)
-                .extracting(CREATED_DATE)
+                .extracting(CREATED_DATE_FIELD)
                 .isEqualTo(savedCorporation.getCreatedDate());
         assertThat(updatedCorporation)
-                .extracting(LAST_MODIFIED_DATE)
+                .extracting(LAST_MODIFIED_DATE_FIELD)
                 .isNotEqualTo(savedCorporation.getCreatedDate());
         assertThat(updatedCorporation)
                 .extracting(VERSION_FIELD)

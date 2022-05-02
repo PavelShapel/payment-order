@@ -1,7 +1,7 @@
 package com.pavelshapel.aws.lambda.service.corporation.model.converter;
 
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
-import com.pavelshapel.common.module.dto.service.location.aws.CorporationDto;
+import com.pavelshapel.common.module.dto.aws.CorporationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.impl.model.TypedDto;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CorporationToDtoConverter implements ToDtoConverter<String, Corporation, CorporationDto> {
     @Autowired
-    JsonConverter jacksonJsonConverter;
+    JsonConverter jsonConverter;
 
     @Override
     public CorporationDto convert(Corporation corporation) {
@@ -39,7 +39,7 @@ public class CorporationToDtoConverter implements ToDtoConverter<String, Corpora
     private void setTyped(CorporationDto corporationDto, Corporation corporation) {
         Optional.ofNullable(corporation)
                 .map(Corporation::getTyped)
-                .flatMap(jacksonJsonConverter::pojoToMap)
+                .map(jsonConverter::pojoToMap)
                 .map(TypedDto::new)
                 .ifPresent(corporationDto::setTyped);
     }

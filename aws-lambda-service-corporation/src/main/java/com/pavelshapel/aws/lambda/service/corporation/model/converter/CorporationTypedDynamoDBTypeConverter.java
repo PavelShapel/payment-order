@@ -20,13 +20,11 @@ public class CorporationTypedDynamoDBTypeConverter implements DynamoDBTypeConver
 
     @Override
     public String convert(Typed<Type> typed) {
-        return staticTypedHandler.serializeTypedBean(typed)
-                .orElseThrow(() -> new IllegalArgumentException(typed.toString()));
+        return staticTypedHandler.serializeTypedBean(typed);
     }
 
     @Override
     public Typed<Type> unconvert(String json) {
-        return staticTypedHandler.deserializeTyped(json)
-                .orElseThrow(() -> new IllegalArgumentException(json));
+        return staticTypedHandler.deserializeTyped(json);
     }
 }
