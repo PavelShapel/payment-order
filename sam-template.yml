@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform:
+  - AWS::Serverless-2016-10-31
+Description: payment order application
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: pavikon-payment-order
+    Description: project name
+
+Resources:
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'com-pavelshapel-${ProjectName}-source'
+
+  TargetBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'com-pavelshapel-${ProjectName}-target'
+
+  PaymentOrderSqs:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub '${ProjectName}-sqs'
+
+  FilePlaceholderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ProjectName}-file-placeholder-function'
+      CodeUri: .\aws-lambda-service-file-placeholder\target\aws-lambda-service-file-placeholder-1.0.0-shaded.jar
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Runtime: java8
+      MemorySize: 512
+      Timeout: 15
+      Architectures:
+        - x86_64
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaSQSQueueExecutionRole
+        - AmazonS3FullAccess
+      Events:
+        PaymentOrderSqsEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt PaymentOrderSqs.Arn
+            BatchSize: 10

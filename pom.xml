@@ -32,8 +32,6 @@
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <boot.property>boot</boot.property>
-        <aws-lambda-java-core.version>1.2.1</aws-lambda-java-core.version>
-        <aws-lambda-java-events.version>3.11.0</aws-lambda-java-events.version>
     </properties>
 
     <dependencyManagement>
@@ -57,17 +55,6 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-core</artifactId>
-                <version>${aws-lambda-java-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-events</artifactId>
-                <version>${aws-lambda-java-events.version}</version>
             </dependency>
 
             <!--com.pavelshapel-->
