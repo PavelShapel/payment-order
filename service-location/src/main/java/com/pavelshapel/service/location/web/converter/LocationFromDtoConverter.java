@@ -1,6 +1,6 @@
 package com.pavelshapel.service.location.web.converter;
 
-import com.pavelshapel.common.module.dto.service.location.jpa.LocationDto;
+import com.pavelshapel.common.module.dto.jpa.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
