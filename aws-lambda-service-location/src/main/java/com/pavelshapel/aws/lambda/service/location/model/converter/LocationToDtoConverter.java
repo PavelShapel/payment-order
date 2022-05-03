@@ -1,7 +1,7 @@
 package com.pavelshapel.aws.lambda.service.location.model.converter;
 
 import com.pavelshapel.aws.lambda.service.location.model.Location;
-import com.pavelshapel.common.module.dto.service.location.aws.LocationDto;
+import com.pavelshapel.common.module.dto.aws.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
 
