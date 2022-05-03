@@ -2,17 +2,19 @@ package com.pavelshapel.aws.lambda.service.file.placeholder.handler;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
-import com.pavelshapel.aws.spring.boot.starter.util.BucketHandler;
-import com.pavelshapel.common.module.dto.aws.SubstitutionDto;
-import com.pavelshapel.core.spring.boot.starter.api.model.S3Transferred;
+import com.pavelshapel.aws.lambda.service.file.placeholder.model.SubstitutionSetting;
+import com.pavelshapel.aws.spring.boot.starter.api.model.S3Transferred;
+import com.pavelshapel.aws.spring.boot.starter.api.util.BucketHandler;
 import com.pavelshapel.core.spring.boot.starter.api.util.SubstitutionProperties;
 import com.pavelshapel.core.spring.boot.starter.api.util.SubstitutionUtils;
 import com.pavelshapel.json.spring.boot.starter.converter.JsonConverter;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -35,10 +37,10 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
 
     @Override
     public APIGatewayProxyResponseEvent apply(SQSEvent sqsEvent) {
-        List<SubstitutionDto> substitutionDtos = getSubstitutionDtos(sqsEvent);
-        substitutionDtos.forEach(this::handleSubstitutionDto);
-        String body = substitutionDtos.stream()
-                .map(SubstitutionDto::getTransferred)
+        List<SubstitutionSetting> substitutionSettings = getSubstitutionSettings(sqsEvent);
+        substitutionSettings.forEach(this::handleSubstitutionSetting);
+        String body = substitutionSettings.stream()
+                .map(SubstitutionSetting::getTransferred)
                 .map(S3Transferred::toString)
                 .collect(Collectors.joining(","));
         return new APIGatewayProxyResponseEvent()
@@ -47,36 +49,36 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
                 .withBody(body);
     }
 
-    private List<SubstitutionDto> getSubstitutionDtos(SQSEvent sqsEvent) {
+    private List<SubstitutionSetting> getSubstitutionSettings(SQSEvent sqsEvent) {
         return sqsEvent.getRecords().stream()
                 .map(SQSEvent.SQSMessage::getBody)
-                .map(json -> jsonConverter.jsonToPojo(json, SubstitutionDto.class))
+                .map(json -> jsonConverter.jsonToPojo(json, SubstitutionSetting.class))
                 .collect(Collectors.toList());
     }
 
-    private void handleSubstitutionDto(SubstitutionDto substitutionDto) {
-        S3Transferred s3Transferred = getS3Transferred(substitutionDto);
-        SubstitutionProperties substitutionProperties = getSubstitutionProperties(substitutionDto);
-        verifyBucket(s3Transferred.getSourceBucket());
-        verifyBucket(s3Transferred.getTargetBucket());
-        verifyFile(s3Transferred.getSourceBucket(), s3Transferred.getSourceFile());
-        transferFile(s3Transferred, substitutionProperties);
+    private void handleSubstitutionSetting(SubstitutionSetting substitutionSetting) {
+        S3Transferred transferred = getTransferred(substitutionSetting);
+        SubstitutionProperties properties = getProperties(substitutionSetting);
+        verifyBucket(transferred.getSourceBucket());
+        verifyBucket(transferred.getTargetBucket());
+        verifyFile(transferred.getSourceBucket(), transferred.getSourceFile());
+        transferFile(transferred, properties);
     }
 
-    private S3Transferred getS3Transferred(SubstitutionDto substitutionDto) {
-        return Optional.of(substitutionDto)
-                .map(SubstitutionDto::getTransferred)
+    private S3Transferred getTransferred(SubstitutionSetting substitutionSetting) {
+        return Optional.of(substitutionSetting)
+                .map(SubstitutionSetting::getTransferred)
                 .filter(transferred -> hasLength(transferred.getSourceBucket()))
                 .filter(transferred -> hasLength(transferred.getSourceFile()))
                 .filter(transferred -> hasLength(transferred.getTargetBucket()))
                 .filter(transferred -> hasLength(transferred.getTargetFile()))
-                .orElseThrow(() -> new IllegalArgumentException(substitutionDto.getTransferred().toString()));
+                .orElseThrow(() -> new IllegalArgumentException(substitutionSetting.getTransferred().toString()));
     }
 
-    private SubstitutionProperties getSubstitutionProperties(SubstitutionDto substitutionDto) {
-        return Optional.of(substitutionDto)
-                .map(SubstitutionDto::getProperties)
-                .orElseThrow(() -> new IllegalArgumentException(substitutionDto.getProperties().toString()));
+    private SubstitutionProperties getProperties(SubstitutionSetting substitutionSetting) {
+        return Optional.of(substitutionSetting)
+                .map(SubstitutionSetting::getProperties)
+                .orElseThrow(() -> new IllegalArgumentException(substitutionSetting.getProperties().toString()));
     }
 
     private void verifyBucket(String bucket) {
@@ -99,10 +101,13 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
         throw new IllegalArgumentException(String.format(FILE_DOES_NOT_EXIST_PATTERN, file));
     }
 
+    @SneakyThrows
     private void transferFile(S3Transferred s3Transferred, SubstitutionProperties substitutionProperties) {
         String targetFile = substitutionUtils.replace(s3Transferred.getTargetFile(), substitutionProperties);
-        Optional.of(bucketHandler.downloadObject(s3Transferred.getSourceBucket(), s3Transferred.getSourceFile()))
-                .map(inputStream -> substitutionUtils.replace(inputStream, substitutionProperties))
-                .ifPresent(payload -> bucketHandler.uploadObject(s3Transferred.getTargetBucket(), targetFile, payload));
+        try (InputStream objectInputStream = bucketHandler.downloadObject(s3Transferred.getSourceBucket(), s3Transferred.getSourceFile())) {
+            Optional.of(objectInputStream)
+                    .map(inputStream -> substitutionUtils.replace(inputStream, substitutionProperties))
+                    .ifPresent(payload -> bucketHandler.uploadObject(s3Transferred.getTargetBucket(), targetFile, payload));
+        }
     }
 }
