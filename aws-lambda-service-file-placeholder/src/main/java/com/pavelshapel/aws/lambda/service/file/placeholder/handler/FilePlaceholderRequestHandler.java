@@ -37,16 +37,23 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
 
     @Override
     public APIGatewayProxyResponseEvent apply(SQSEvent sqsEvent) {
-        List<SubstitutionSetting> substitutionSettings = getSubstitutionSettings(sqsEvent);
-        substitutionSettings.forEach(this::handleSubstitutionSetting);
-        String body = substitutionSettings.stream()
-                .map(SubstitutionSetting::getTransferred)
-                .map(S3Transferred::toString)
-                .collect(Collectors.joining(","));
-        return new APIGatewayProxyResponseEvent()
-                .withStatusCode(200)
-                .withHeaders(singletonMap(CONTENT_TYPE, APPLICATION_JSON_VALUE))
-                .withBody(body);
+        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
+                .withHeaders(singletonMap(CONTENT_TYPE, APPLICATION_JSON_VALUE));
+        try {
+            List<SubstitutionSetting> substitutionSettings = getSubstitutionSettings(sqsEvent);
+            substitutionSettings.forEach(this::handleSubstitutionSetting);
+            String body = substitutionSettings.stream()
+                    .map(SubstitutionSetting::getTransferred)
+                    .map(S3Transferred::toString)
+                    .collect(Collectors.joining(","));
+            return response
+                    .withStatusCode(200)
+                    .withBody(body);
+        } catch (Exception exception) {
+            return response
+                    .withStatusCode(500)
+                    .withBody(String.format("{%s}", exception.getMessage()));
+        }
     }
 
     private List<SubstitutionSetting> getSubstitutionSettings(SQSEvent sqsEvent) {
