@@ -26,7 +26,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testcontainers.version>1.16.3</testcontainers.version>
-        <postgresql.version>42.2.25</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
         <pavelshapel.version>1.0.0</pavelshapel.version>
         <spring-cloud-dependencies.version>2021.0.1</spring-cloud-dependencies.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
