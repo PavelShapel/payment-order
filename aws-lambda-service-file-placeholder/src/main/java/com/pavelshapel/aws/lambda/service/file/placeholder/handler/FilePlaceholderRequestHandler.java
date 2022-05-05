@@ -20,6 +20,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.Collections.singletonMap;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -39,20 +41,22 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
     public APIGatewayProxyResponseEvent apply(SQSEvent sqsEvent) {
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(singletonMap(CONTENT_TYPE, APPLICATION_JSON_VALUE));
+        String body;
         try {
             List<SubstitutionSetting> substitutionSettings = getSubstitutionSettings(sqsEvent);
             substitutionSettings.forEach(this::handleSubstitutionSetting);
-            String body = substitutionSettings.stream()
+            body = substitutionSettings.stream()
                     .map(SubstitutionSetting::getTransferred)
                     .map(S3Transferred::toString)
                     .collect(Collectors.joining(","));
             return response
-                    .withStatusCode(200)
+                    .withStatusCode(HTTP_OK)
                     .withBody(body);
         } catch (Exception exception) {
+            body = String.format("{exceptionMessage: %s}", exception.getMessage());
             return response
-                    .withStatusCode(500)
-                    .withBody(String.format("{%s}", exception.getMessage()));
+                    .withStatusCode(HTTP_INTERNAL_ERROR)
+                    .withBody(body);
         }
     }
 
