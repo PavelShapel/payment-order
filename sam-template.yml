@@ -25,6 +25,14 @@ Resources:
     Properties:
       QueueName: !Sub '${ProjectName}-sqs'
 
+#  CorporationTable:
+#    Type: AWS::Serverless::SimpleTable
+#    Properties:
+#      TableName: nbrb
+#      ProvisionedThroughput:
+#        ReadCapacityUnits: 10
+#        WriteCapacityUnits: 10
+
   FilePlaceholderFunction:
     Type: AWS::Serverless::Function
     Properties:
