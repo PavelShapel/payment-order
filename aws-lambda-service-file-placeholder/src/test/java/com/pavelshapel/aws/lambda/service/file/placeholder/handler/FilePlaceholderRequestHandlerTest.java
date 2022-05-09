@@ -3,7 +3,7 @@ package com.pavelshapel.aws.lambda.service.file.placeholder.handler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.amazonaws.services.lambda.runtime.tests.annotations.Event;
-import com.pavelshapel.aws.lambda.service.file.placeholder.config.FilePlaceholderS3AwsConfig;
+import com.pavelshapel.aws.lambda.service.file.placeholder.config.FilePlaceholderS3AwsConfiguration;
 import com.pavelshapel.aws.lambda.service.file.placeholder.model.SubstitutionSetting;
 import com.pavelshapel.aws.spring.boot.starter.AwsStarterAutoConfiguration;
 import com.pavelshapel.aws.spring.boot.starter.api.util.BucketHandler;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest(
         classes = {
-                FilePlaceholderS3AwsConfig.class,
+                FilePlaceholderS3AwsConfiguration.class,
                 FilePlaceholderRequestHandler.class,
                 CoreStarterAutoConfiguration.class,
                 JsonStarterAutoConfiguration.class,

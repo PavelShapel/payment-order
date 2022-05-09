@@ -25,6 +25,10 @@
             <exclusions>
                 <exclusion>
                     <groupId>com.amazonaws</groupId>
+                    <artifactId>aws-java-sdk-lambda</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.amazonaws</groupId>
                     <artifactId>aws-java-sdk-dynamodb</artifactId>
                 </exclusion>
                 <exclusion>
@@ -34,10 +38,6 @@
                 <exclusion>
                     <groupId>com.github.derjust</groupId>
                     <artifactId>spring-data-dynamodb</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.amazonaws.serverless</groupId>
-                    <artifactId>aws-serverless-java-container-springboot2</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.pavelshapel</groupId>

@@ -53,7 +53,7 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
                     .withStatusCode(HTTP_OK)
                     .withBody(body);
         } catch (Exception exception) {
-            body = String.format("{exceptionMessage: %s}", exception.getMessage());
+            body = exception.getMessage();
             return response
                     .withStatusCode(HTTP_INTERNAL_ERROR)
                     .withBody(body);
