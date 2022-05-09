@@ -17,6 +17,7 @@
         <module>aws-lambda-service-location</module>
         <module>aws-lambda-service-corporation</module>
         <module>aws-lambda-service-file-placeholder</module>
+        <module>aws-lambda-service-nbrb</module>
         <!--        <module>service-auth</module>-->
     </modules>
 

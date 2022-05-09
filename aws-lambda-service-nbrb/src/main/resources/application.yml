@@ -1,0 +1,9 @@
+spring:
+  aws:
+    dynamodb:
+      name: dynamodb
+      object: nbrb
+  web:
+    web-client:
+      base-url: https://www.nbrb.by/api
+      timeout: 1000
