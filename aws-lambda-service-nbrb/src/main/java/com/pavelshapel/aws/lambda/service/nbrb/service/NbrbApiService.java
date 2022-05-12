@@ -1,9 +1,9 @@
 package com.pavelshapel.aws.lambda.service.nbrb.service;
 
-import com.pavelshapel.aws.lambda.service.nbrb.service.api.ApiService;
 import com.pavelshapel.common.module.dto.aws.NbrbDto;
 import com.pavelshapel.core.spring.boot.starter.impl.model.RatedDto;
-import com.pavelshapel.web.spring.boot.starter.properties.WebProperties;
+import com.pavelshapel.webflux.spring.boot.starter.api.ApiService;
+import com.pavelshapel.webflux.spring.boot.starter.properties.WebFluxProperties;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +19,7 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class NbrbApiService implements ApiService<RatedDto, NbrbDto> {
     WebClient webClient;
-    WebProperties webProperties;
+    WebFluxProperties webFluxProperties;
 
     @Override
     public NbrbDto get(RatedDto ratedDto) {
@@ -32,7 +32,7 @@ public class NbrbApiService implements ApiService<RatedDto, NbrbDto> {
                         .build(ratedDto.getAbbreviation()))
                 .retrieve()
                 .bodyToMono(NbrbDto.class)
-                .retryWhen(Retry.fixedDelay(3, ofMillis(webProperties.getWebClient().getTimeout())))
+                .retryWhen(Retry.fixedDelay(3, ofMillis(webFluxProperties.getWebClient().getTimeout())))
                 .block();
     }
 }

@@ -1,11 +1,8 @@
 spring:
   aws:
     dynamodb:
-      enabled: true
+      enabled: false
       object: nbrb
-    s3:
-      enabled: true
-      object: com-pavelshapel-pavikon-payment-order-backup
   webflux:
     web-client:
       enabled: true

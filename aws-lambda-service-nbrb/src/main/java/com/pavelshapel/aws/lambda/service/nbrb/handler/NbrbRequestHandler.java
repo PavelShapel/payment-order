@@ -2,11 +2,12 @@ package com.pavelshapel.aws.lambda.service.nbrb.handler;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.pavelshapel.aws.lambda.service.nbrb.model.Nbrb;
-import com.pavelshapel.aws.lambda.service.nbrb.service.api.ApiService;
 import com.pavelshapel.common.module.dto.aws.NbrbDto;
+import com.pavelshapel.core.spring.boot.starter.api.util.StreamUtils;
 import com.pavelshapel.core.spring.boot.starter.impl.model.RatedDto;
 import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchCriteria;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractDaoRestController;
+import com.pavelshapel.webflux.spring.boot.starter.api.ApiService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,6 +36,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class NbrbRequestHandler implements Function<RatedDto, APIGatewayProxyResponseEvent> {
     AbstractDaoRestController<String, Nbrb, NbrbDto> nbrbDaoRestController;
     ApiService<RatedDto, NbrbDto> nbrbApiService;
+    StreamUtils coreStreamUtils;
 
     @Override
     public APIGatewayProxyResponseEvent apply(RatedDto ratedDto) {
@@ -70,7 +72,7 @@ public class NbrbRequestHandler implements Function<RatedDto, APIGatewayProxyRes
                 .orElseGet(Collections::emptyList)
                 .stream()
                 .filter(nbrbDto -> Objects.equals(ratedDto.getAbbreviation(), nbrbDto.getAbbreviation()))
-                .findFirst()
+                .collect(coreStreamUtils.toSingleton())
                 .orElseGet(() -> getAndSaveNbrbDto(ratedDto));
     }
 

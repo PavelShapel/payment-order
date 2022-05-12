@@ -6,17 +6,17 @@ import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractDaoRestController;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.pavelshapel.aws.lambda.service.nbrb.model.Nbrb.TABLE_NAME;
 import static com.pavelshapel.aws.lambda.service.nbrb.web.NbrbDaoRestController.HOME_PATH;
 
 
 @RestController
 @RequestMapping(HOME_PATH)
 public class NbrbDaoRestController extends AbstractDaoRestController<String, Nbrb, NbrbDto> {
-    public static final String HOME_PATH = "/nbrb" + StringUtils.EMPTY;
+    public static final String HOME_PATH = TABLE_NAME;
 
     protected NbrbDaoRestController(DaoService<String, Nbrb> nbrbDaoService,
                                     FromDtoConverter<String, NbrbDto, Nbrb> nbrbFromDtoConverter,
