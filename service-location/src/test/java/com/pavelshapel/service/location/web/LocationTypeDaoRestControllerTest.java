@@ -1,7 +1,8 @@
 package com.pavelshapel.service.location.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pavelshapel.core.spring.boot.starter.CoreStarterAutoConfiguration;
+import com.pavelshapel.json.spring.boot.starter.JsonStarterAutoConfiguration;
+import com.pavelshapel.json.spring.boot.starter.converter.JsonConverter;
 import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.service.location.provider.OneLongOneStringProvider;
@@ -32,13 +33,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({
         CoreStarterAutoConfiguration.class,
         LocationTypeSearchSpecification.class,
-        WebStarterAutoConfiguration.class
+        WebStarterAutoConfiguration.class,
+        JsonStarterAutoConfiguration.class
 })
 class LocationTypeDaoRestControllerTest implements MockLocationType {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private ObjectMapper jsonConverter;
+    private JsonConverter jsonConverter;
     @MockBean
     private LocationTypeDaoService locationTypeDaoService;
     @MockBean
@@ -53,7 +55,7 @@ class LocationTypeDaoRestControllerTest implements MockLocationType {
         mockMvc.perform(MockMvcRequestBuilders
                         .post(HOME_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonConverter.writeValueAsString(mockLocationType))
+                        .content(jsonConverter.pojoToJson(mockLocationType))
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
@@ -72,7 +74,7 @@ class LocationTypeDaoRestControllerTest implements MockLocationType {
         mockMvc.perform(MockMvcRequestBuilders
                         .put(HOME_PATH + ID_PATH, String.valueOf(id))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonConverter.writeValueAsString(mockLocationType))
+                        .content(jsonConverter.pojoToJson(mockLocationType))
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

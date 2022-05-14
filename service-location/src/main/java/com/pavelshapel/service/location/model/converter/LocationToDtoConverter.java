@@ -1,4 +1,4 @@
-package com.pavelshapel.service.location.web.converter;
+package com.pavelshapel.service.location.model.converter;
 
 import com.pavelshapel.common.module.dto.jpa.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;

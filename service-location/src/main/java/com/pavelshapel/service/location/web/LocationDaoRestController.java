@@ -4,10 +4,11 @@ import com.pavelshapel.common.module.dto.jpa.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
-import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchSpecification;
+import com.pavelshapel.core.spring.boot.starter.impl.web.search.AbstractSearchSpecification;
 import com.pavelshapel.service.location.model.Location;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractSpecificationDaoRestController;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class LocationDaoRestController extends AbstractSpecificationDaoRestContr
     protected LocationDaoRestController(DaoService<Long, Location> locationDaoService,
                                         FromDtoConverter<Long, LocationDto, Location> locationFromDtoConverter,
                                         ToDtoConverter<Long, Location, LocationDto> locationToDtoConverter,
-                                        SearchSpecification<Location> locationSearchSpecification) {
-        super(locationDaoService, locationFromDtoConverter, locationToDtoConverter, locationSearchSpecification);
+                                        ObjectFactory<AbstractSearchSpecification<Location>> locationSearchSpecificationFactory) {
+        super(locationDaoService, locationFromDtoConverter, locationToDtoConverter, locationSearchSpecificationFactory);
     }
 }
