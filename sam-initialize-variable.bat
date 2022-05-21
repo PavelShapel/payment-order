@@ -3,9 +3,12 @@
 set DOMAIN=com-pavelshapel
 set PROJECT=pavikon-payment-order
 
-set ARTIFACT_BUCKET=%DOMAIN%-artifact
-set SOURCE_BUCKET=%DOMAIN%-%PROJECT%-source
-set TARGET_BUCKET=%DOMAIN%-%PROJECT%-target
+set ARTIFACT_BUCKET=%DOMAIN%-artifact-bucket
+set BACKUP_BUCKET=%DOMAIN%-backup-bucket
+set SOURCE_BUCKET=%DOMAIN%-%PROJECT%-source-bucket
+set TARGET_BUCKET=%DOMAIN%-%PROJECT%-target-bucket
+set NBRB_FUNCTION=%PROJECT%-nbrb-function
+set FILE_PLACEHOLDER_FUNCTION=%PROJECT%-file-placeholder-function
 
 set STACK=%PROJECT%-stack
 

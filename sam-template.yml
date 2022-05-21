@@ -4,41 +4,48 @@ Transform:
 Description: payment order application
 
 Parameters:
-  ProjectName:
+  Project:
     Type: String
     Default: pavikon-payment-order
     Description: project name
+  Domain:
+    Type: String
+    Default: com-pavelshapel
+    Description: domain name
 
 Resources:
   SourceBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub 'com-pavelshapel-${ProjectName}-source'
+      BucketName: !Sub '${Domain}-${Project}-source-bucket'
 
   TargetBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub 'com-pavelshapel-${ProjectName}-target'
+      BucketName: !Sub '${Domain}-${Project}-target-bucket'
 
   PaymentOrderSqs:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Sub '${ProjectName}-sqs'
+      QueueName: !Sub '${Project}-sqs'
 
-#  CorporationTable:
-#    Type: AWS::Serverless::SimpleTable
-#    Properties:
-#      TableName: nbrb
-#      ProvisionedThroughput:
-#        ReadCapacityUnits: 10
-#        WriteCapacityUnits: 10
+  NbrbTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: nbrb
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
 
   FilePlaceholderFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub '${ProjectName}-file-placeholder-function'
+      FunctionName: !Sub '${Project}-file-placeholder-function'
       CodeUri: .\aws-lambda-service-file-placeholder\target\aws-lambda-service-file-placeholder-1.0.0-shaded.jar
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Environment:
+        Variables:
+          FUNCTION_NAME: filePlaceholderRequestHandler
       Runtime: java8
       MemorySize: 512
       Timeout: 15
@@ -54,3 +61,21 @@ Resources:
           Properties:
             Queue: !GetAtt PaymentOrderSqs.Arn
             BatchSize: 10
+  NbrbFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${Project}-nbrb-function'
+      CodeUri: .\aws-lambda-service-nbrb\target\aws-lambda-service-nbrb-1.0.0-shaded.jar
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Environment:
+        Variables:
+          FUNCTION_NAME: nbrbRequestHandler
+      Runtime: java8
+      MemorySize: 512
+      Timeout: 15
+      Architectures:
+        - x86_64
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonS3FullAccess
+        - AmazonDynamoDBFullAccess

@@ -92,6 +92,11 @@
             </dependency>
             <dependency>
                 <groupId>com.pavelshapel</groupId>
+                <artifactId>webflux-spring-boot-starter</artifactId>
+                <version>${pavelshapel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pavelshapel</groupId>
                 <artifactId>core-spring-boot-starter</artifactId>
                 <version>${pavelshapel.version}</version>
             </dependency>
