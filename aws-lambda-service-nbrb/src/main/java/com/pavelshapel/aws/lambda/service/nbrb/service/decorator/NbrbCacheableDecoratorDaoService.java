@@ -4,8 +4,6 @@ import com.pavelshapel.aws.lambda.service.nbrb.model.Nbrb;
 import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.Decorator;
 import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.instance.AbstractCacheableDecoratorDaoService;
 import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchCriterion;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.springframework.cache.Cache;
 
 import java.util.Collection;
@@ -16,7 +14,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Decorator
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class NbrbCacheableDecoratorDaoService extends AbstractCacheableDecoratorDaoService<String, Nbrb> {
     @Override
     public List<Nbrb> findAll(Collection<SearchCriterion> searchCriteria) {
