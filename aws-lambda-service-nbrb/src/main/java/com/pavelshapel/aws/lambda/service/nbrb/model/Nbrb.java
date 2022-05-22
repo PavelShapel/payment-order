@@ -1,6 +1,7 @@
 package com.pavelshapel.aws.lambda.service.nbrb.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.pavelshapel.aws.spring.boot.starter.converter.LocalDateDynamoDBTypeConverter;
 import com.pavelshapel.core.spring.boot.starter.api.model.Entity;
 import com.pavelshapel.core.spring.boot.starter.api.model.Named;
 import lombok.AccessLevel;
@@ -9,10 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static com.pavelshapel.aws.lambda.service.nbrb.model.Nbrb.TABLE_NAME;
-import static com.pavelshapel.common.module.dto.aws.NbrbDto.DATE_PATTERN;
 
 @Data
 @NoArgsConstructor
@@ -27,8 +27,8 @@ public class Nbrb implements Entity<String>, Named {
     String id;
 
     @DynamoDBAttribute
-    @DynamoDBTypeConvertedTimestamp(pattern = DATE_PATTERN)
-    Date date;
+    @DynamoDBTypeConverted(converter = LocalDateDynamoDBTypeConverter.class)
+    LocalDate date;
 
     @DynamoDBAttribute
     String abbreviation;
