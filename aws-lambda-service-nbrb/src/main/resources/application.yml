@@ -5,7 +5,7 @@ spring:
       object: nbrb
     s3:
       enabled: true
-      object: com-pavelshapel-pavikon-payment-order-backup
+      object: com-pavelshapel-backup-bucket
   webflux:
     web-client:
       enabled: true
