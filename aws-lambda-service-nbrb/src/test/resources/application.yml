@@ -3,6 +3,9 @@ spring:
     dynamodb:
       enabled: false
       object: nbrb
+    s3:
+      enabled: false
+      object: com-pavelshapel-backup-bucket
   webflux:
     web-client:
       enabled: true

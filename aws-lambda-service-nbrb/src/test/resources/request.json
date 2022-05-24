@@ -1,0 +1,6 @@
+{
+  "body": "{\"abbreviation\":\"USD\"}",
+  "headers": {
+    "Accept": "application/json"
+  }
+}
