@@ -48,7 +48,7 @@ Resources:
           FUNCTION_NAME: filePlaceholderRequestHandler
       Runtime: java8
       MemorySize: 512
-      Timeout: 15
+      Timeout: 30
       Architectures:
         - x86_64
       Policies:
@@ -71,8 +71,8 @@ Resources:
         Variables:
           FUNCTION_NAME: nbrbRequestHandler
       Runtime: java8
-      MemorySize: 512
-      Timeout: 15
+      MemorySize: 1024
+      Timeout: 60
       Architectures:
         - x86_64
       Policies:
