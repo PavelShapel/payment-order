@@ -1,7 +1,7 @@
 package com.pavelshapel.aws.lambda.service.nbrb.service;
 
 import com.pavelshapel.common.module.dto.aws.NbrbDto;
-import com.pavelshapel.core.spring.boot.starter.impl.model.RatedDto;
+import com.pavelshapel.common.module.dto.aws.RatedDto;
 import com.pavelshapel.webflux.spring.boot.starter.api.ApiService;
 import com.pavelshapel.webflux.spring.boot.starter.properties.WebFluxProperties;
 import lombok.AccessLevel;
