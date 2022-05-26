@@ -11,3 +11,9 @@ spring:
       enabled: true
       base-url: https://www.nbrb.by/api
       timeout: 1000
+logging:
+  level:
+    reactor:
+      netty:
+        http:
+          client: DEBUG
