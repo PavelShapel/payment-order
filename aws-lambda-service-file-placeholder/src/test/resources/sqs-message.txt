@@ -1,0 +1,1 @@
+{"transferred": {"sourceBucket":"com-pavelshapel-pavikon-payment-order-source-bucket", "targetBucket":"com-pavelshapel-pavikon-payment-order-target-bucket","sourceFile":"akbb-payment-order-template.txt",  "targetFile":"akbb-payment-order-${number}.txt"}, "properties":{"number":"99999"}}

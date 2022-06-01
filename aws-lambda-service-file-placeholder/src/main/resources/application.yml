@@ -1,4 +1,4 @@
 spring:
   aws:
     s3:
-      name: s3
+      enabled: true

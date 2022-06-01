@@ -4,7 +4,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.pavelshapel.aws.lambda.service.file.placeholder.model.SubstitutionSetting;
 import com.pavelshapel.aws.spring.boot.starter.api.model.S3Transferred;
-import com.pavelshapel.aws.spring.boot.starter.api.util.BucketHandler;
+import com.pavelshapel.aws.spring.boot.starter.api.service.BucketHandler;
 import com.pavelshapel.core.spring.boot.starter.api.util.SubstitutionProperties;
 import com.pavelshapel.core.spring.boot.starter.api.util.SubstitutionUtils;
 import com.pavelshapel.json.spring.boot.starter.converter.JsonConverter;
@@ -20,10 +20,10 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
-import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.Collections.singletonMap;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.StringUtils.hasLength;
 
@@ -31,8 +31,6 @@ import static org.springframework.util.StringUtils.hasLength;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGatewayProxyResponseEvent> {
-    public static final String BUCKET_DOES_NOT_EXIST_PATTERN = "bucket [%s] does not exist";
-    public static final String FILE_DOES_NOT_EXIST_PATTERN = "file [%s] does not exist";
     BucketHandler bucketHandler;
     SubstitutionUtils substitutionUtils;
     JsonConverter jsonConverter;
@@ -50,12 +48,12 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
                     .map(S3Transferred::toString)
                     .collect(Collectors.joining(","));
             return response
-                    .withStatusCode(HTTP_OK)
+                    .withStatusCode(OK.value())
                     .withBody(body);
         } catch (Exception exception) {
-            body = exception.getMessage();
+            body = jsonConverter.pojoToJson(singletonMap("exceptionMessage", exception.getMessage()));
             return response
-                    .withStatusCode(HTTP_INTERNAL_ERROR)
+                    .withStatusCode(INTERNAL_SERVER_ERROR.value())
                     .withBody(body);
         }
     }
@@ -63,8 +61,12 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
     private List<SubstitutionSetting> getSubstitutionSettings(SQSEvent sqsEvent) {
         return sqsEvent.getRecords().stream()
                 .map(SQSEvent.SQSMessage::getBody)
-                .map(json -> jsonConverter.jsonToPojo(json, SubstitutionSetting.class))
+                .map(this::jsonToPojo)
                 .collect(Collectors.toList());
+    }
+
+    private SubstitutionSetting jsonToPojo(String json) {
+        return jsonConverter.jsonToPojo(json, SubstitutionSetting.class);
     }
 
     private void handleSubstitutionSetting(SubstitutionSetting substitutionSetting) {
@@ -72,8 +74,8 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
         SubstitutionProperties properties = getProperties(substitutionSetting);
         verifyBucket(transferred.getSourceBucket());
         verifyBucket(transferred.getTargetBucket());
-        verifyFile(transferred.getSourceBucket(), transferred.getSourceFile());
-        transferFile(transferred, properties);
+        verifyObject(transferred.getSourceBucket(), transferred.getSourceFile());
+        transferObject(transferred, properties);
     }
 
     private S3Transferred getTransferred(SubstitutionSetting substitutionSetting) {
@@ -99,21 +101,21 @@ public class FilePlaceholderRequestHandler implements Function<SQSEvent, APIGate
     }
 
     private void throwBucketDoesNotExistException(String bucket) {
-        throw new IllegalArgumentException(String.format(BUCKET_DOES_NOT_EXIST_PATTERN, bucket));
+        throw new IllegalArgumentException("bucket [" + bucket + "] does not exist");
     }
 
-    private void verifyFile(String bucket, String file) {
-        Optional.of(bucketHandler.isObjectExist(bucket, file))
+    private void verifyObject(String bucket, String object) {
+        Optional.of(bucketHandler.isObjectExist(bucket, object))
                 .filter(Boolean.FALSE::equals)
-                .ifPresent(unused -> throwFileDoesNotExistException(file));
+                .ifPresent(unused -> throwObjectDoesNotExistException(object));
     }
 
-    private void throwFileDoesNotExistException(String file) {
-        throw new IllegalArgumentException(String.format(FILE_DOES_NOT_EXIST_PATTERN, file));
+    private void throwObjectDoesNotExistException(String object) {
+        throw new IllegalArgumentException("object [" + object + "] does not exist");
     }
 
     @SneakyThrows
-    private void transferFile(S3Transferred s3Transferred, SubstitutionProperties substitutionProperties) {
+    private void transferObject(S3Transferred s3Transferred, SubstitutionProperties substitutionProperties) {
         String targetFile = substitutionUtils.replace(s3Transferred.getTargetFile(), substitutionProperties);
         try (InputStream objectInputStream = bucketHandler.downloadObject(s3Transferred.getSourceBucket(), s3Transferred.getSourceFile())) {
             Optional.of(objectInputStream)

@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.tests.annotations.Event;
 import com.pavelshapel.aws.lambda.service.file.placeholder.config.FilePlaceholderS3AwsConfiguration;
 import com.pavelshapel.aws.lambda.service.file.placeholder.model.SubstitutionSetting;
 import com.pavelshapel.aws.spring.boot.starter.AwsStarterAutoConfiguration;
-import com.pavelshapel.aws.spring.boot.starter.api.util.BucketHandler;
+import com.pavelshapel.aws.spring.boot.starter.api.service.BucketHandler;
 import com.pavelshapel.aws.spring.boot.starter.impl.model.MapS3Transferred;
 import com.pavelshapel.core.spring.boot.starter.CoreStarterAutoConfiguration;
 import com.pavelshapel.core.spring.boot.starter.api.util.SubstitutionProperties;
@@ -19,13 +19,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
-import static java.net.HttpURLConnection.HTTP_OK;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(
         classes = {
@@ -59,7 +59,7 @@ class FilePlaceholderRequestHandlerTest {
         APIGatewayProxyResponseEvent response = filePlaceholderRequestHandler.apply(sqsEvent);
 
         assertThat(response.getStatusCode())
-                .isEqualTo(HTTP_OK);
+                .isEqualTo(OK.value());
     }
 
     @ParameterizedTest
@@ -70,7 +70,7 @@ class FilePlaceholderRequestHandlerTest {
         APIGatewayProxyResponseEvent response = filePlaceholderRequestHandler.apply(sqsEvent);
 
         assertThat(response.getStatusCode())
-                .isEqualTo(HTTP_INTERNAL_ERROR);
+                .isEqualTo(INTERNAL_SERVER_ERROR.value());
     }
 
     @ParameterizedTest
@@ -81,7 +81,7 @@ class FilePlaceholderRequestHandlerTest {
         APIGatewayProxyResponseEvent response = filePlaceholderRequestHandler.apply(sqsEvent);
 
         assertThat(response.getStatusCode())
-                .isEqualTo(HTTP_INTERNAL_ERROR);
+                .isEqualTo(INTERNAL_SERVER_ERROR.value());
     }
 
     @ParameterizedTest
@@ -95,6 +95,6 @@ class FilePlaceholderRequestHandlerTest {
         APIGatewayProxyResponseEvent response = filePlaceholderRequestHandler.apply(sqsEvent);
 
         assertThat(response.getStatusCode())
-                .isEqualTo(HTTP_INTERNAL_ERROR);
+                .isEqualTo(INTERNAL_SERVER_ERROR.value());
     }
 }
