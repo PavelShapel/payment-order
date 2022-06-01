@@ -2,7 +2,7 @@ package com.pavelshapel.service.location.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pavelshapel.core.spring.boot.starter.api.model.ParentalEntity;
-import com.pavelshapel.jpa.spring.boot.starter.model.AbstractAuditableVersionEntity;
+import com.pavelshapel.rdbms.spring.boot.starter.model.AbstractCreatedVersionedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -18,7 +18,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"parent_id", "name"}))
-public class Location extends AbstractAuditableVersionEntity<Long> implements ParentalEntity<Long, Location> {
+public class Location extends AbstractCreatedVersionedEntity<Long> implements ParentalEntity<Long, Location> {
     @ManyToOne(targetEntity = Location.class)
     @JoinColumn(name = "parent_id")
     @JsonIgnore

@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.repository;
 
-import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchCriterion;
-import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchOperation;
+import com.pavelshapel.jpa.spring.boot.starter.service.search.SearchCriterion;
+import com.pavelshapel.jpa.spring.boot.starter.service.search.SearchOperation;
 import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.service.location.provider.OneStringProvider;

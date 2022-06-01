@@ -46,7 +46,7 @@ Resources:
       Environment:
         Variables:
           FUNCTION_NAME: filePlaceholderRequestHandler
-      Runtime: java8
+      Runtime: java11
       MemorySize: 512
       Timeout: 30
       Architectures:
@@ -70,7 +70,7 @@ Resources:
       Environment:
         Variables:
           FUNCTION_NAME: nbrbRequestHandler
-      Runtime: java8
+      Runtime: java11
       MemorySize: 1024
       Timeout: 60
       Architectures:

@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.service;
 
-import com.pavelshapel.core.spring.boot.starter.impl.service.AbstractSpecificationDaoService;
-import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.DecorateDaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.AbstractSpecificationDaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.decorator.DecorateDaoService;
 import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.service.location.service.decorator.LocationTypeCacheableDecoratorDaoService;
 import com.pavelshapel.service.location.service.decorator.LocationTypeThrowableDecoratorDaoService;

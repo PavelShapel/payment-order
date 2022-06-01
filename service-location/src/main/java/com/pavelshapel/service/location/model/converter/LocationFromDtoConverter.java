@@ -3,7 +3,7 @@ package com.pavelshapel.service.location.model.converter;
 import com.pavelshapel.common.module.dto.jpa.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
-import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.DaoService;
 import com.pavelshapel.service.location.model.Location;
 import com.pavelshapel.service.location.model.LocationType;
 import lombok.AccessLevel;
