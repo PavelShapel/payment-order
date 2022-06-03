@@ -75,7 +75,7 @@ class FilePlaceholderRequestHandlerTest {
 
     @ParameterizedTest
     @Event(value = "src/test/resources/sqs-message.json", type = SQSEvent.class)
-    void apply_WithFileNotExists_ShouldReturnHttpInternalError(SQSEvent sqsEvent) {
+    void apply_WithObjectNotExists_ShouldReturnHttpInternalError(SQSEvent sqsEvent) {
         doReturn(false).when(bucketHandler).isBucketExists(anyString());
 
         APIGatewayProxyResponseEvent response = filePlaceholderRequestHandler.apply(sqsEvent);
