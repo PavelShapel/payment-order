@@ -1,5 +1,5 @@
 spring:
   aws:
-    dynamo-db:
-      enable: true
-      table: corporation
+    dynamodb:
+      enabled: true
+      object: corporation
