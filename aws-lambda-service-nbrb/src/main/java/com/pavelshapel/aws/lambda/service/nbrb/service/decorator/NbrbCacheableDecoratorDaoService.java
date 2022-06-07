@@ -1,9 +1,9 @@
 package com.pavelshapel.aws.lambda.service.nbrb.service.decorator;
 
 import com.pavelshapel.aws.lambda.service.nbrb.model.Nbrb;
-import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.Decorator;
-import com.pavelshapel.core.spring.boot.starter.impl.service.decorator.instance.AbstractCacheableDecoratorDaoService;
-import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchCriterion;
+import com.pavelshapel.jpa.spring.boot.starter.service.decorator.Decorator;
+import com.pavelshapel.jpa.spring.boot.starter.service.decorator.instance.AbstractCacheableDecoratorDaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.search.SearchCriterion;
 import org.springframework.cache.Cache;
 
 import java.util.Collection;

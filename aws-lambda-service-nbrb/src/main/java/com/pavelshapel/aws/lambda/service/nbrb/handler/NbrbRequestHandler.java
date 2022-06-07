@@ -7,7 +7,7 @@ import com.pavelshapel.common.module.dto.aws.NbrbDto;
 import com.pavelshapel.common.module.dto.aws.RatedDto;
 import com.pavelshapel.core.spring.boot.starter.api.util.StreamUtils;
 import com.pavelshapel.core.spring.boot.starter.enums.PrimitiveType;
-import com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchCriterion;
+import com.pavelshapel.jpa.spring.boot.starter.service.search.SearchCriterion;
 import com.pavelshapel.json.spring.boot.starter.converter.JsonConverter;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractDaoRestController;
 import com.pavelshapel.webflux.spring.boot.starter.api.ApiService;
@@ -27,7 +27,7 @@ import java.util.function.Function;
 
 import static com.pavelshapel.core.spring.boot.starter.api.model.Rated.ABBREVIATION_FIELD;
 import static com.pavelshapel.core.spring.boot.starter.api.model.Rated.DATE_FIELD;
-import static com.pavelshapel.core.spring.boot.starter.impl.web.search.SearchOperation.EQUALS;
+import static com.pavelshapel.jpa.spring.boot.starter.service.search.SearchOperation.EQUALS;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonMap;
 import static org.apache.commons.lang3.math.NumberUtils.toScaledBigDecimal;
@@ -61,7 +61,7 @@ public class NbrbRequestHandler implements Function<APIGatewayProxyRequestEvent,
                     .withStatusCode(OK.value())
                     .withBody(body);
         } catch (Exception exception) {
-            body = String.format("{exceptionMessage: %s}", exception.getMessage());
+            body = jsonConverter.pojoToJson(singletonMap("exceptionMessage", exception.getMessage()));
             return response
                     .withStatusCode(INTERNAL_SERVER_ERROR.value())
                     .withBody(body);
@@ -74,7 +74,7 @@ public class NbrbRequestHandler implements Function<APIGatewayProxyRequestEvent,
         searchCriterion.setOperation(EQUALS);
         String value = ratedDto.getDate().atStartOfDay().format(DateTimeFormatter.ISO_LOCAL_DATE);
         String valueType = PrimitiveType.LOCAL_DATE.name();
-        searchCriterion.setValue(String.format("%s;%s", value, valueType));
+        searchCriterion.setValue(value + ";" + valueType);
         return searchCriterion;
     }
 
@@ -84,7 +84,7 @@ public class NbrbRequestHandler implements Function<APIGatewayProxyRequestEvent,
         searchCriterion.setOperation(EQUALS);
         String value = ratedDto.getAbbreviation();
         String valueType = PrimitiveType.STRING.name();
-        searchCriterion.setValue(String.format("%s;%s", value, valueType));
+        searchCriterion.setValue(value + ";" + valueType);
         return searchCriterion;
     }
 
@@ -98,7 +98,7 @@ public class NbrbRequestHandler implements Function<APIGatewayProxyRequestEvent,
     }
 
     private NbrbDto getAndSaveNbrbDto(RatedDto ratedDto) {
-        return Optional.of(nbrbApiService.get(ratedDto))
+        return nbrbApiService.get(ratedDto)
                 .map(nbrbDaoRestController::save)
                 .map(HttpEntity::getBody)
                 .orElseThrow(() -> new IllegalArgumentException(ratedDto.toString()));

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.util.retry.Retry;
 
+import java.util.Optional;
+
 import static java.time.Duration.ofMillis;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
@@ -22,7 +24,7 @@ public class NbrbApiService implements ApiService<RatedDto, NbrbDto> {
     WebFluxProperties webFluxProperties;
 
     @Override
-    public NbrbDto get(RatedDto ratedDto) {
+    public Optional<NbrbDto> get(RatedDto ratedDto) {
         return webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -33,6 +35,6 @@ public class NbrbApiService implements ApiService<RatedDto, NbrbDto> {
                 .retrieve()
                 .bodyToMono(NbrbDto.class)
                 .retryWhen(Retry.fixedDelay(3, ofMillis(webFluxProperties.getWebClient().getTimeout())))
-                .block();
+                .blockOptional();
     }
 }
