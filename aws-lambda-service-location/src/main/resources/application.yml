@@ -1,3 +1,4 @@
 spring:
   aws:
-    table: location
+    dynamodb:
+      object: location
