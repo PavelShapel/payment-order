@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.service.decorator;
 
 import com.pavelshapel.jpa.spring.boot.starter.service.decorator.Decorator;
-import com.pavelshapel.jpa.spring.boot.starter.service.decorator.instance.AbstractThrowableDecoratorDaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.decorator.impl.AbstractThrowableDecoratorDaoService;
 import com.pavelshapel.service.location.model.Location;
 
 @Decorator

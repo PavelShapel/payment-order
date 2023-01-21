@@ -5,7 +5,7 @@ import com.pavelshapel.aws.lambda.service.location.model.LocationType;
 import com.pavelshapel.common.module.dto.aws.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.DtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
-import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.DaoService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -1,0 +1,4 @@
+spring:
+  aws:
+    s3:
+      enabled: true

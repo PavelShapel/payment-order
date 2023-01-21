@@ -4,7 +4,7 @@ import com.pavelshapel.aws.lambda.service.location.model.Location;
 import com.pavelshapel.common.module.dto.aws.LocationDto;
 import com.pavelshapel.core.spring.boot.starter.api.converter.FromDtoConverter;
 import com.pavelshapel.core.spring.boot.starter.api.converter.ToDtoConverter;
-import com.pavelshapel.core.spring.boot.starter.api.service.DaoService;
+import com.pavelshapel.jpa.spring.boot.starter.service.DaoService;
 import com.pavelshapel.web.spring.boot.starter.web.AbstractDaoRestController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;

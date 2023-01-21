@@ -5,11 +5,15 @@ import com.pavelshapel.aws.lambda.service.corporation.handler.Handler;
 import com.pavelshapel.aws.lambda.service.corporation.model.Corporation;
 import com.pavelshapel.aws.lambda.service.corporation.model.Type;
 import com.pavelshapel.aws.lambda.service.corporation.model.typed.AbstractTyped;
+import com.pavelshapel.aws.spring.boot.starter.api.service.DbHandler;
 import com.pavelshapel.core.spring.boot.starter.api.util.StreamUtils;
-import com.pavelshapel.test.spring.boot.starter.layer.AbstractDynamoDbDaoRepositoryTest;
+import com.pavelshapel.jpa.spring.boot.starter.repository.DaoRepository;
+import com.pavelshapel.test.spring.boot.starter.annotation.SpringBootTestProfileTest;
+import com.pavelshapel.test.spring.boot.starter.container.AwsDynamoDBExtension;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +29,26 @@ import static com.pavelshapel.core.spring.boot.starter.api.model.Entity.ID_FIELD
 import static com.pavelshapel.core.spring.boot.starter.api.model.Versioned.VERSION_FIELD;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<String, Corporation> implements MockCorporation {
+@SpringBootTestProfileTest
+@ExtendWith(AwsDynamoDBExtension.class)
+class CorporationDaoRepositoryTest implements MockCorporation {
     @Autowired
     private StreamUtils streamUtils;
     @Autowired
     private Handler typedHandler;
+    @Autowired
+    private DaoRepository<String, Corporation> daoRepository;
+    @Autowired
+    private DbHandler dynamoDbHandler;
 
     @BeforeEach
     void setUp() {
         Class<Corporation> targetClass = Corporation.class;
         String tableName = targetClass.getSimpleName().toLowerCase();
         try {
-            getDynamoDbHandler().createDefaultTable(tableName);
+            dynamoDbHandler.createDefaultTable(tableName);
         } catch (Exception exception) {
-            getDynamoDbHandler().deleteAll(targetClass);
+            dynamoDbHandler.deleteAll(targetClass);
         }
     }
 
@@ -49,7 +59,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
 
-        Corporation savedCorporation = getDaoRepository().save(mockCorporation);
+        Corporation savedCorporation = daoRepository.save(mockCorporation);
 
         assertThat(savedCorporation)
                 .extracting(ID_FIELD)
@@ -71,13 +81,13 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
         Corporation mockCorporation = typedHandler.getTyped(type)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
-        Corporation savedCorporation = getDynamoDbHandler().save(mockCorporation);
+        Corporation savedCorporation = dynamoDbHandler.save(mockCorporation);
         Optional.of(savedCorporation)
                 .map(Corporation::getTyped)
                 .map(AbstractTyped.class::cast)
                 .ifPresent(abstractTyped -> abstractTyped.setName(RandomStringUtils.randomAlphabetic(1, Byte.MAX_VALUE)));
 
-        Corporation updatedCorporation = getDaoRepository().save(savedCorporation);
+        Corporation updatedCorporation = daoRepository.save(savedCorporation);
 
         assertThat(updatedCorporation)
                 .extracting(ID_FIELD)
@@ -102,7 +112,7 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
                 .map(typed -> getMockCorporation(null, null, typed))
                 .collect(Collectors.toList());
 
-        Iterable<Corporation> savedCorporations = getDaoRepository().saveAll(corporations);
+        Iterable<Corporation> savedCorporations = daoRepository.saveAll(corporations);
 
         assertThat(savedCorporations)
                 .asList()
@@ -115,9 +125,9 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
         Corporation mockCorporation = typedHandler.getTyped(type)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .orElseThrow(RuntimeException::new);
-        Corporation savedCorporation = getDynamoDbHandler().save(mockCorporation);
+        Corporation savedCorporation = dynamoDbHandler.save(mockCorporation);
 
-        Optional<Corporation> retrievedCorporation = getDaoRepository().findById(savedCorporation.getId());
+        Optional<Corporation> retrievedCorporation = daoRepository.findById(savedCorporation.getId());
 
         assertThat(retrievedCorporation)
                 .isNotEmpty()
@@ -132,12 +142,12 @@ class CorporationDaoRepositoryTest extends AbstractDynamoDbDaoRepositoryTest<Str
                 .map(Optional::get)
                 .map(typed -> getMockCorporation(null, null, typed))
                 .collect(Collectors.toList());
-        Iterable<Corporation> savedCorporations = getDaoRepository().saveAll(corporations);
+        Iterable<Corporation> savedCorporations = daoRepository.saveAll(corporations);
         List<String> savedIds = streamUtils.iterableToStream(savedCorporations)
                 .map(Corporation::getId)
                 .collect(Collectors.toList());
 
-        Iterable<Corporation> retrievedCorporations = getDaoRepository().findAllById(savedIds);
+        Iterable<Corporation> retrievedCorporations = daoRepository.findAllById(savedIds);
 
         assertThat(retrievedCorporations)
                 .asList()
