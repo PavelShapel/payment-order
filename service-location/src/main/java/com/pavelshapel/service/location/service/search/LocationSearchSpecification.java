@@ -1,4 +1,4 @@
-package com.pavelshapel.service.location.repository.search;
+package com.pavelshapel.service.location.service.search;
 
 import com.pavelshapel.jpa.spring.boot.starter.service.search.AbstractSearchSpecification;
 import com.pavelshapel.service.location.model.Location;

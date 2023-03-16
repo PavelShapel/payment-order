@@ -7,7 +7,7 @@ import com.pavelshapel.service.location.MockLocationType;
 import com.pavelshapel.service.location.model.LocationType;
 import com.pavelshapel.service.location.provider.OneLongOneStringProvider;
 import com.pavelshapel.service.location.provider.OneStringProvider;
-import com.pavelshapel.service.location.repository.search.LocationTypeSearchSpecification;
+import com.pavelshapel.service.location.service.search.LocationTypeSearchSpecification;
 import com.pavelshapel.service.location.service.LocationDaoService;
 import com.pavelshapel.service.location.service.LocationTypeDaoService;
 import com.pavelshapel.web.spring.boot.starter.WebStarterAutoConfiguration;
