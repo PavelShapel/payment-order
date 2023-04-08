@@ -1,0 +1,6 @@
+<span [ngClass]="getClass()" matSnackBarLabel>
+    {{message}}
+</span>
+<span [ngClass]="getClass()" matSnackBarActions>
+    <button mat-button matSnackBarAction (click)="_snackBarRef.dismissWithAction()">&times;</button>
+</span>

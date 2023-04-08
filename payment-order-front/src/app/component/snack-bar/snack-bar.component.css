@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+}
+
+.text-color-success {
+    color: green;
+}
+
+.text-color-error {
+    color: red;
+}
+
+.text-color-info {
+    color: yellow;
+}
+
+.text-color-default {
+    color: white;
+}
