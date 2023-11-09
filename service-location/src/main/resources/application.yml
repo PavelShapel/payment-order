@@ -30,7 +30,7 @@ spring:
     add-mappings: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:32769/postgres
+    url: jdbc:postgresql://localhost:32768/postgres
     username: postgres
     password: postgrespw
     initialization-mode: never
@@ -42,7 +42,7 @@ spring:
       ddl-auto: validate
   liquibase:
     enabled: true
-    url: jdbc:postgresql://localhost:32769/postgres
+    url: jdbc:postgresql://localhost:32768/postgres
     user: postgres
     password: postgrespw
     change-log: classpath:db/changelog/db.changelog-master.yml

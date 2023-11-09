@@ -1,7 +1,7 @@
 package com.pavelshapel.service.location.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pavelshapel.rdbms.spring.boot.starter.model.AbstractCreatedVersionedEntity;
+import com.pavelshapel.jpa.spring.boot.starter.model.AbstractCreatedVersionedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

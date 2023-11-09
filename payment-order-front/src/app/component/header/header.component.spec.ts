@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TITLE } from 'src/app/model/title';
@@ -9,7 +10,12 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent]
+      declarations: [
+        HeaderComponent
+      ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     })
       .compileComponents();
 
@@ -22,7 +28,7 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('render span, should include application title', () => {
+  it('render span, should include application title [' + TITLE + ']', () => {
     const debugElement = fixture.debugElement.query(By.css('span'));
 
     expect(debugElement.nativeElement.textContent).toContain(TITLE);
